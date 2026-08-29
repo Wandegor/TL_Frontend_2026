@@ -4,21 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0d15e35-06d9-46a7-a198-3da7a856b6d2" name="Changes" comment="chore: удалил дублирующуюся папку">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="f0d15e35-06d9-46a7-a198-3da7a856b6d2" name="Changes" comment="refactor: тонна правок по стилям из PR">
+      <change afterPath="$PROJECT_DIR$/client/src/components/Button/Button.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Button/Button.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/Converter.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/Converter.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/Converter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/Converter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/CurrencyInput/CurrencyInput.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/CurrencyInput/CurrencyInput.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/CurrencyInput/CurrencyInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/CurrencyInput/CurrencyInput.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -45,6 +46,9 @@
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="3ECj0zDG1jN2Kv143Qa81iMOMWR" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -93,7 +97,7 @@
       <workItem from="1779689227912" duration="1273000" />
       <workItem from="1779955662135" duration="3261000" />
       <workItem from="1780898963557" duration="796000" />
-      <workItem from="1788030222172" duration="2669000" />
+      <workItem from="1788030222172" duration="3434000" />
     </task>
     <task id="LOCAL-00001" summary="Добавлен server для 3 домашки">
       <option name="closed" value="true" />
@@ -127,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1788030767221</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="refactor: тонна правок по стилям из PR">
+      <option name="closed" value="true" />
+      <created>1788033327215</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1788033327215</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,6 +173,7 @@
     <MESSAGE value="Добавлена 4 домашка" />
     <MESSAGE value="init: перенес файлы проекта в client" />
     <MESSAGE value="chore: удалил дублирующуюся папку" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: удалил дублирующуюся папку" />
+    <MESSAGE value="refactor: тонна правок по стилям из PR" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: тонна правок по стилям из PR" />
   </component>
 </project>

@@ -1,5 +1,6 @@
 import type { CurrencyPair } from "../../types/currencyPair.ts";
 import styles from "./Filter.module.scss";
+import { Button } from "../Button/Button.tsx";
 
 type SavedPairsProps = {
   savedPairs: CurrencyPair[];
@@ -18,14 +19,9 @@ export const Filter = ({ savedPairs }: SavedPairsProps) => {
       </div>
       <div className={styles.filtersWrapper}>
         {savedPairs.map((pair) => (
-          <button
-            className={styles.filterButton}
-            key={`${pair.base}-${pair.quote}`}
-            type="button"
-            onClick={() => {}}
-          >
+          <Button>
             {pair.base}/{pair.quote}
-          </button>
+          </Button>
         ))}
       </div>
     </>
