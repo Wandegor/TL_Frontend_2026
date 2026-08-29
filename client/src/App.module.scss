@@ -1,0 +1,30 @@
+.page {
+  margin: 0 auto;
+  padding: 64px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.toggle {
+  align-self: flex-start;
+  font: inherit;
+  font-weight: 500;
+  color: var(--txt-2);
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.toggle:hover {
+  color: var(--txt);
+  border-color: var(--blue);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 1px;
+}

@@ -1,0 +1,115 @@
+.card {
+  max-width: 1258px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+  padding: 50px 40px;
+  border: 30px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 16px rgb(24 105 227 / 8%);
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.left {
+  max-width: 410px; // предположительно есть максимум
+  display: flex;
+  flex-direction: column;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule {
+  margin-top: 10px;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.kicker {
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: #767676;
+}
+
+.title {
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 45px;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: #000000;
+}
+
+.date {
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 15px;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: #767676;
+}
+
+.currencyRows {
+  display: flex;
+  flex-direction: column;
+  align-items: self-start;
+}
+
+// заготовка из лекции, решил пока не убирать
+//.result {
+//  margin: 0;
+//  font-size: 40px;
+//  font-weight: 600;
+//  line-height: 1.1;
+//  color: var(--blue);
+//}
+//
+//.unit {
+//  font-size: 24px;
+//  font-weight: 500;
+//  color: var(--txt-2);
+//}
+//
+//.rate {
+//  margin: 0;
+//  color: var(--txt-2);
+//}
+//
+///* Пригодится на шаге 1, когда появятся состояния загрузки и ошибки. */
+//.loading {
+//  margin: 0;
+//  color: var(--txt-2);
+//}
+//
+//.error {
+//  margin: 0;
+//  padding: 12px 14px;
+//  border-radius: 8px;
+//  background: #fff3f0;
+//  color: var(--red-d);
+//}
