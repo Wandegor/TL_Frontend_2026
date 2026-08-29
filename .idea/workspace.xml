@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0d15e35-06d9-46a7-a198-3da7a856b6d2" name="Changes" comment="init: перенес файлы проекта в client" />
+    <list default="true" id="f0d15e35-06d9-46a7-a198-3da7a856b6d2" name="Changes" comment="chore: удалил дублирующуюся папку">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Converter.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/Converter.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Converter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/Converter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/CurrencyInput/CurrencyInput.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/CurrencyInput/CurrencyInput.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/CurrencyInput/CurrencyInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/CurrencyInput/CurrencyInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,6 +64,9 @@
     "node.js.selected.package.stylelint": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "D:\\Projects\\TLHomeworks\\client\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "settings.javascript.prettier",
+    "ts.external.directory.path": "D:\\Projects\\TLHomeworks\\client\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -80,7 +93,7 @@
       <workItem from="1779689227912" duration="1273000" />
       <workItem from="1779955662135" duration="3261000" />
       <workItem from="1780898963557" duration="796000" />
-      <workItem from="1788030222172" duration="359000" />
+      <workItem from="1788030222172" duration="2669000" />
     </task>
     <task id="LOCAL-00001" summary="Добавлен server для 3 домашки">
       <option name="closed" value="true" />
@@ -106,7 +119,15 @@
       <option name="project" value="LOCAL" />
       <updated>1788030552305</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="chore: удалил дублирующуюся папку">
+      <option name="closed" value="true" />
+      <created>1788030767221</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1788030767221</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,7 +144,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="main" />
+                        <option value="1-static" />
                       </list>
                     </value>
                   </entry>
@@ -139,6 +160,7 @@
     <MESSAGE value="Добавлен server для 3 домашки" />
     <MESSAGE value="Добавлена 4 домашка" />
     <MESSAGE value="init: перенес файлы проекта в client" />
-    <option name="LAST_COMMIT_MESSAGE" value="init: перенес файлы проекта в client" />
+    <MESSAGE value="chore: удалил дублирующуюся папку" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: удалил дублирующуюся папку" />
   </component>
 </project>

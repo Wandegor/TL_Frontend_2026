@@ -11,7 +11,7 @@ export function Converter() {
   const baseCurrency = CURRENCIES[2];
   const quoteCurrency = CURRENCIES[3];
 
-  const savedPairs: CurrencyPair[] = [
+  const filters: CurrencyPair[] = [
     { base: "PLN", quote: "CAD" },
     { base: "PLN", quote: "JPY" },
   ];
@@ -47,7 +47,7 @@ export function Converter() {
               currencyLabel="Целевая валюта"
             />
           </div>
-          <Filter savedPairs={savedPairs} />
+          <Filter savedPairs={filters} />
         </div>
         <div className={styles.right}>
           <ScheduleFilters />

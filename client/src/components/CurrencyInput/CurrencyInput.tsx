@@ -29,6 +29,8 @@ export const CurrencyInput = ({
         aria-label={amountLabel}
       />
 
+      <div className={styles.divider} aria-hidden="true" />
+
       <select
         className={styles.currency}
         value={currencyCode}

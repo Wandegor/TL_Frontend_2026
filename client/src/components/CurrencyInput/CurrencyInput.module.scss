@@ -51,20 +51,27 @@ $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
   }
 }
 
+.divider {
+  flex: none;
+  align-self: center;
+  width: 1px;
+  height: 35px;
+  background: $border-color;
+}
+
 .currency {
   flex: 1;
-  align-self: center; // разделитель в макете короче поля: 35px из 55px
   box-sizing: border-box;
-  height: 35px;
+  height: 100%;
   padding: 0 ($arrow-offset + $arrow-width) 0 $currency-padding-left;
+
   border: none;
-  border-left: 1px solid $border-color;
   border-radius: 0;
+
   color: $text-color;
   font: inherit;
   font-size: $font-size;
-  // Своя стрелка вместо системной — иначе поле выглядит по-разному
-  // в Chrome, Firefox и Safari, а в макете стрелка одна конкретная.
+
   appearance: none;
   background: $arrow no-repeat right $arrow-offset center;
   background-size: $arrow-width $arrow-height;
@@ -73,8 +80,6 @@ $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
     outline: none;
   }
 
-  // На первом занятии контрол статический, поэтому селект `disabled`.
-  // Браузер по умолчанию гасит текст — возвращаем цвет из макета.
   &:disabled {
     opacity: 1;
     color: $text-color;
