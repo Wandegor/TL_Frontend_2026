@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0d15e35-06d9-46a7-a198-3da7a856b6d2" name="Changes" comment="refactor: тонна правок по стилям из PR">
-      <change afterPath="$PROJECT_DIR$/client/src/components/Button/Button.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/Button/Button.tsx" afterDir="false" />
+    <list default="true" id="f0d15e35-06d9-46a7-a198-3da7a856b6d2" name="Changes" comment="feat: вынес кнопки в отдельный компонент">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Filter/Filter.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Filter/Filter.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/ScheduleFilters/ScheduleFilters.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ScheduleFilters/ScheduleFilters.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +69,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "D:\\Projects\\TLHomeworks\\client\\node_modules\\prettier",
+    "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "settings.javascript.prettier",
     "ts.external.directory.path": "D:\\Projects\\TLHomeworks\\client\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
@@ -97,7 +98,7 @@
       <workItem from="1779689227912" duration="1273000" />
       <workItem from="1779955662135" duration="3261000" />
       <workItem from="1780898963557" duration="796000" />
-      <workItem from="1788030222172" duration="3434000" />
+      <workItem from="1788030222172" duration="4289000" />
     </task>
     <task id="LOCAL-00001" summary="Добавлен server для 3 домашки">
       <option name="closed" value="true" />
@@ -139,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1788033327215</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: вынес кнопки в отдельный компонент">
+      <option name="closed" value="true" />
+      <created>1788034227935</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1788034227935</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,6 +183,7 @@
     <MESSAGE value="init: перенес файлы проекта в client" />
     <MESSAGE value="chore: удалил дублирующуюся папку" />
     <MESSAGE value="refactor: тонна правок по стилям из PR" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: тонна правок по стилям из PR" />
+    <MESSAGE value="feat: вынес кнопки в отдельный компонент" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: вынес кнопки в отдельный компонент" />
   </component>
 </project>
