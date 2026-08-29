@@ -2,8 +2,6 @@
 // разделитель — вертикальная линия высотой 35, текст Inter 22.
 $field-width: 410px;
 $field-height: 55px;
-$border-color: #d9d9d9;
-$text-color: #000;
 $font-size: 22px;
 
 $amount-width: 76px; // до разделителя
@@ -25,7 +23,7 @@ $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
   width: $field-width;
   max-width: 100%;
   height: $field-height;
-  border: 1px solid $border-color;
+  border: 1px solid var(--line);
   border-radius: 6px;
   background: #fff;
   font-family: Inter, sans-serif;
@@ -42,7 +40,7 @@ $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
   padding: 0 6px 0 $amount-padding-left;
   border: none;
   background: none;
-  color: $text-color;
+  color: var(--txt);
   font: inherit;
   font-size: $font-size;
 
@@ -56,7 +54,7 @@ $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
   align-self: center;
   width: 1px;
   height: 35px;
-  background: $border-color;
+  background: var(--line);
 }
 
 .currency {
@@ -68,7 +66,7 @@ $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
   border: none;
   border-radius: 0;
 
-  color: $text-color;
+  color: var(--txt);
   font: inherit;
   font-size: $font-size;
 
@@ -82,7 +80,7 @@ $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
 
   &:disabled {
     opacity: 1;
-    color: $text-color;
-    -webkit-text-fill-color: $text-color;
+    color: var(--txt);
+    -webkit-text-fill-color: var(--txt);
   }
 }
