@@ -10,6 +10,10 @@ const anotherCurrency = CURRENCIES[0];
 
 const initialAmount = 100;
 
+const calculateConverted = (amount: number, rate: number) => {
+  return Number((amount * rate).toFixed(2));
+};
+
 describe("Converter", () => {
   it("renders currency fields and selects with mock data", () => {
     render(<Converter />);
@@ -55,8 +59,9 @@ describe("Converter", () => {
 
     const initialRate = priceChanges[base.code][quote.code].price;
 
-    const expectedInitialResult = Number(
-      (initialAmount * initialRate).toFixed(2),
+    const expectedInitialResult = calculateConverted(
+      initialAmount,
+      initialRate,
     );
     expect(resultInput).toHaveValue(expectedInitialResult);
 
@@ -66,7 +71,7 @@ describe("Converter", () => {
       target: { value: String(newAmount) },
     });
 
-    const expectedNewResult = Number((newAmount * initialRate).toFixed(2));
+    const expectedNewResult = calculateConverted(newAmount, initialRate);
 
     expect(resultInput).toHaveValue(expectedNewResult);
   });
@@ -88,7 +93,7 @@ describe("Converter", () => {
 
     const rate = priceChanges[base.code][anotherCurrency.code].price;
 
-    const expectedResult = Number((initialAmount * rate).toFixed(2));
+    const expectedResult = calculateConverted(initialAmount, rate);
 
     expect(resultInput).toHaveValue(expectedResult);
   });
@@ -128,7 +133,7 @@ describe("Converter", () => {
     });
 
     const swapButton = screen.getByRole("button", {
-      name: /swap/i,
+      name: "swap",
     });
 
     expect(baseSelect).toHaveValue(base.code);
@@ -141,7 +146,7 @@ describe("Converter", () => {
 
     const swappedRate = priceChanges[quote.code][base.code].price;
 
-    const expectedResult = Number((initialAmount * swappedRate).toFixed(2));
+    const expectedResult = calculateConverted(initialAmount, swappedRate);
 
     expect(resultInput).toHaveValue(expectedResult);
   });
