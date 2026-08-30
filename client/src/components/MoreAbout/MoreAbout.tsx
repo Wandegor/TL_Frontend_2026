@@ -26,14 +26,14 @@ export const MoreAbout = ({ baseCurrency, quoteCurrency }: MoreAboutProps) => {
         <h2>
           {baseCurrency.name} - {baseCurrency.code} - {baseCurrency.symbol}
         </h2>
-        <p> {baseCurrency.description} </p>
+        <p> {baseCurrency.description || "Description is not available"} </p>
       </article>
 
       <article className={styles.article}>
         <h2>
           {quoteCurrency.name} - {quoteCurrency.code} - {quoteCurrency.symbol}
         </h2>
-        <p> {quoteCurrency.description} </p>
+        <p> {quoteCurrency.description || "Description is not available"} </p>
       </article>
     </section>
   );
