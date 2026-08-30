@@ -82,7 +82,9 @@ export function Converter() {
               {converted} {quoteCurrency.name}
             </h1>
 
-            <p className={styles.date}>{priceChange.dateTime}</p>
+            <p className={styles.date}>
+              {new Date(priceChange.dateTime).toUTCString()}
+            </p>
           </header>
           <div className={styles.currencyRows}>
             <CurrencyInput
