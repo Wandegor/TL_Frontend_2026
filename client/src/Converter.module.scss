@@ -74,9 +74,23 @@
 }
 
 .currencyRows {
+  margin-top: 25px;
   display: flex;
   flex-direction: column;
   align-items: self-start;
+}
+
+.swapButton {
+  margin: 3px 0 3px 0;
+  height: 20px;
+  padding: 0 3px;
+  border: var(--txt) 1px solid;
+  border-radius: 6px;
+  background: var(--line);
+  text-align: center;
+  line-height: 100%;
+
+  cursor: pointer;
 }
 
 // заготовка из лекции, решил пока не убирать
