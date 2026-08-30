@@ -10,7 +10,7 @@ type MoreAboutProps = {
 };
 
 export const MoreAbout = ({ baseCurrency, quoteCurrency }: MoreAboutProps) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <section className={styles.wrapper}>
