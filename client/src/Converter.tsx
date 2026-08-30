@@ -14,7 +14,10 @@ export function Converter() {
   const [quote, setQuote] = useState("JPY");
   const [amount, setAmount] = useState(100);
 
-  const [filters, setFilters] = useState<CurrencyPair[]>([]);
+  const [filters, setFilters] = useState<CurrencyPair[]>([
+    { base: "PLN", quote: "CAD" },
+    { base: "PLN", quote: "JPY" },
+  ]);
 
   const baseCurrency = CURRENCIES.find((currency) => currency.code === base);
   const quoteCurrency = CURRENCIES.find((currency) => currency.code === quote);
@@ -51,6 +54,10 @@ export function Converter() {
     }
     setQuote(value);
   };
+
+  const clearFilters = () => {
+    setFilters([]);
+  }
 
   return (
     <section className={styles.card}>
@@ -96,7 +103,7 @@ export function Converter() {
               setBase(pair.base);
               setQuote(pair.quote);
             }}
-            onClear={() => {}} //TODO: сделать очистку
+            onClear={clearFilters}
           />
         </div>
         <div className={styles.right}>
