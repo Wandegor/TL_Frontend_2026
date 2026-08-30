@@ -1,7 +1,7 @@
 .buttonWrapper {
   margin-top: 15px;
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
 }
 
 .filtersWrapper {
@@ -12,17 +12,21 @@
 }
 
 @mixin filterButton($background) {
-  width: 200px;
+  flex: 1 1 200px;
+  max-width: 200px;
   height: 50px;
   border-radius: 10px;
   padding: 10px;
   background: $background;
-
   color: white;
   border: none;
 
+  // выравнивание текста
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   font-weight: 700;
-  font-style: normal;
   font-size: 22px;
   line-height: 100%;
   letter-spacing: 0;
