@@ -16,19 +16,15 @@ $arrow-offset: 20px; // от правого края поля
 $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 14.1728 16'%3E%3Cpath d='M0 0H14.1728L7.08642 16Z' fill='%23D9D9D9'/%3E%3C/svg%3E");
 
 .field {
-  box-sizing: border-box;
-
   display: flex;
   align-items: stretch;
-
-  inline-size: $field-width;
-  max-inline-size: 100%;
-  block-size: $field-height;
-
-  background: #fff;
+  box-sizing: border-box;
+  width: $field-width;
+  max-width: 100%;
+  height: $field-height;
   border: 1px solid vars.$line;
   border-radius: 6px;
-
+  background: #fff;
   font-family: Inter, sans-serif;
 
   &:focus-within {
@@ -37,16 +33,12 @@ $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
 }
 
 .amount {
-  box-sizing: border-box;
-
   flex: none;
-
-  inline-size: $amount-width;
+  box-sizing: border-box;
+  width: $amount-width;
   padding: 0 6px 0 $amount-padding-left;
-
-  background: none;
   border: none;
-
+  background: none;
   color: vars.$txt;
   font: inherit;
   font-size: $font-size;
@@ -59,30 +51,27 @@ $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
 .divider {
   flex: none;
   align-self: center;
-
-  inline-size: 1px;
-  block-size: 35px;
-
+  width: 1px;
+  height: 35px;
   background: vars.$line;
 }
 
 .currency {
-  box-sizing: border-box;
-
   flex: 1;
-
-  block-size: 100%;
+  box-sizing: border-box;
+  height: 100%;
   padding: 0 ($arrow-offset + $arrow-width) 0 $currency-padding-left;
 
-  appearance: none;
-  background: $arrow no-repeat right $arrow-offset center;
-  background-size: $arrow-width $arrow-height;
   border: none;
   border-radius: 0;
 
   color: vars.$txt;
   font: inherit;
   font-size: $font-size;
+
+  appearance: none;
+  background: $arrow no-repeat right $arrow-offset center;
+  background-size: $arrow-width $arrow-height;
 
   &:focus-visible {
     outline: none;
@@ -91,7 +80,6 @@ $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
   &:disabled {
     opacity: 1;
     color: vars.$txt;
-
     -webkit-text-fill-color: vars.$txt;
   }
 }

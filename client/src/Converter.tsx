@@ -10,13 +10,13 @@ import { useState } from "react";
 import { priceChanges } from "./data/priceChanges.ts";
 
 export function Converter() {
-  const [base, setBase] = useState("PLN");
-  const [quote, setQuote] = useState("JPY");
+  const [base, setBase] = useState(CURRENCIES[1].code);
+  const [quote, setQuote] = useState(CURRENCIES[3].code);
   const [amount, setAmount] = useState(100);
 
   const [filters, setFilters] = useState<CurrencyPair[]>([
-    { base: "PLN", quote: "CAD" },
-    { base: "PLN", quote: "JPY" },
+    { base: CURRENCIES[1].code, quote: CURRENCIES[0].code },
+    { base: CURRENCIES[1].code, quote: CURRENCIES[3].code },
   ]);
 
   const baseCurrency = CURRENCIES.find((currency) => currency.code === base);
@@ -41,6 +41,11 @@ export function Converter() {
     setFilters((prev) => [...prev, pair]);
   };
 
+  const selectPair = (pair: CurrencyPair) => {
+    setBase(pair.base);
+    setQuote(pair.quote);
+  };
+
   const handleBaseChange = (value: string) => {
     if (value === quote) {
       return;
@@ -55,9 +60,14 @@ export function Converter() {
     setQuote(value);
   };
 
+  const handleSwap = () => {
+    setBase(quote);
+    setQuote(base);
+  };
+
   const clearFilters = () => {
     setFilters([]);
-  }
+  };
 
   return (
     <section className={styles.card}>
@@ -85,6 +95,10 @@ export function Converter() {
               currencyLabel="Исходная валюта"
             />
 
+            <button className={styles.swapButton} onClick={handleSwap}>
+              swap
+            </button>
+
             <CurrencyInput
               amount={converted ?? 0}
               currencyCode={quote}
@@ -94,15 +108,11 @@ export function Converter() {
               currencyLabel="Целевая валюта"
             />
           </div>
-          // TODO: сделать кнопку-Swap валют
           <Filter
             currentPair={{ base, quote }}
             savedPairs={filters}
             onSave={savePair}
-            onSelect={(pair) => {
-              setBase(pair.base);
-              setQuote(pair.quote);
-            }}
+            onSelect={(pair) => selectPair(pair)}
             onClear={clearFilters}
           />
         </div>
