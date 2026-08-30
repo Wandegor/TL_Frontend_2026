@@ -26,7 +26,7 @@ export function Converter() {
   const priceChange = priceChanges[base][quote];
   const rate = priceChange.price;
 
-  const converted = amount * rate;
+  const converted = Number((amount * rate).toFixed(2));
 
   const savePair = (pair: CurrencyPair) => {
     const saved = filters.some(
@@ -39,10 +39,16 @@ export function Converter() {
   };
 
   const handleBaseChange = (value: string) => {
+    if (value === quote) {
+      return;
+    }
     setBase(value);
   };
 
   const handleQuoteChange = (value: string) => {
+    if (value === base) {
+      return;
+    }
     setQuote(value);
   };
 
@@ -51,10 +57,12 @@ export function Converter() {
       <div className={styles.top}>
         <div className={styles.left}>
           <header className={styles.head}>
-            <p className={styles.kicker}>1 {baseCurrency.name} is</p>
+            <p className={styles.kicker}>
+              {amount} {baseCurrency.name} is
+            </p>
 
             <h1 className={styles.title}>
-              {converted} {baseCurrency.code}
+              {converted} {quoteCurrency.name}
             </h1>
 
             <p className={styles.date}>{priceChange.dateTime}</p>
@@ -100,10 +108,7 @@ export function Converter() {
           />
         </div>
       </div>
-      <MoreAbout
-        baseCurrency={baseCurrency}
-        quoteCurrency={quoteCurrency}
-      />
+      <MoreAbout baseCurrency={baseCurrency} quoteCurrency={quoteCurrency} />
     </section>
   );
 }
