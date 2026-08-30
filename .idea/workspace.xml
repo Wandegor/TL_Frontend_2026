@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0d15e35-06d9-46a7-a198-3da7a856b6d2" name="Changes" comment="feat: сделал минимально рабочие хуки и смену валют">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="f0d15e35-06d9-46a7-a198-3da7a856b6d2" name="Changes" comment="fix: исправил ошибки в Converter.tsx">
       <change beforePath="$PROJECT_DIR$/client/src/Converter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/Converter.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -98,7 +97,7 @@
       <workItem from="1779955662135" duration="3261000" />
       <workItem from="1780898963557" duration="796000" />
       <workItem from="1788030222172" duration="4823000" />
-      <workItem from="1788093846055" duration="7115000" />
+      <workItem from="1788093846055" duration="7486000" />
     </task>
     <task id="LOCAL-00001" summary="Добавлен server для 3 домашки">
       <option name="closed" value="true" />
@@ -172,7 +171,15 @@
       <option name="project" value="LOCAL" />
       <updated>1788101042262</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="fix: исправил ошибки в Converter.tsx">
+      <option name="closed" value="true" />
+      <created>1788102458425</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1788102458425</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -189,7 +196,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="1-static" />
+                        <option value="2-useState" />
                       </list>
                     </value>
                   </entry>
@@ -211,6 +218,7 @@
     <MESSAGE value="feat: сделал mixin для кнопок фильтра" />
     <MESSAGE value="refactor: заменил значения переменными из :root" />
     <MESSAGE value="feat: сделал минимально рабочие хуки и смену валют" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: сделал минимально рабочие хуки и смену валют" />
+    <MESSAGE value="fix: исправил ошибки в Converter.tsx" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: исправил ошибки в Converter.tsx" />
   </component>
 </project>
