@@ -125,7 +125,12 @@ export function Converter() {
           />
         </div>
       </div>
-      <MoreAbout baseCurrency={baseCurrency} quoteCurrency={quoteCurrency} />
+      {/*Когда меняется валюта, меняется ключ => пересоздание компонента и isOpen внутри сбрасывается*/}
+      <MoreAbout
+        key={`${base}-${quote}`}
+        baseCurrency={baseCurrency}
+        quoteCurrency={quoteCurrency}
+      />
     </section>
   );
 }
