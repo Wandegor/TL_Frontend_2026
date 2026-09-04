@@ -8,6 +8,7 @@ import { ScheduleFilters } from "./components/ScheduleFilters/ScheduleFilters.ts
 import graph from "./assets/graf.png";
 import { useState } from "react";
 import { priceChanges } from "./data/priceChanges.ts";
+import { Button } from "./components/Button/Button.tsx";
 
 export function Converter() {
   const [base, setBase] = useState(CURRENCIES[1].code);
@@ -97,9 +98,9 @@ export function Converter() {
               currencyLabel="Исходная валюта"
             />
 
-            <button className={styles.swapButton} onClick={handleSwap}>
+            <Button size="tiny" variant="gray" onClick={handleSwap}>
               swap
-            </button>
+            </Button>
 
             <CurrencyInput
               amount={converted ?? 0}

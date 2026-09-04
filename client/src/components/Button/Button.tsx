@@ -1,7 +1,7 @@
 import styles from "./Button.module.scss";
 import type { ReactNode } from "react";
 
-type ButtonSize = "small" | "medium" | "large";
+type ButtonSize = "tiny" | "small" | "medium" | "large";
 type ButtonVariant = "gray" | "blue" | "red";
 
 type ButtonProps = {
