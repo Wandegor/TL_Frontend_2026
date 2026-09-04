@@ -1,6 +1,7 @@
 import styles from "./MoreAbout.module.scss";
 import type { Currency } from "../../types/currency.ts";
 import arrow from "../../assets/arrow.svg";
+import { Button } from "../Button/Button.tsx";
 
 type MoreAboutProps = {
   baseCurrency: Currency;
@@ -11,12 +12,12 @@ export const MoreAbout = ({ baseCurrency, quoteCurrency }: MoreAboutProps) => {
   return (
     <section className={styles.wrapper}>
       <div className={styles.header}>
-        <button className={styles.button} type="button" onClick={() => {}}>
+        <Button size="medium" variant="gray">
           {baseCurrency.code}/{quoteCurrency.code}: about
           <span className={styles.arrow} aria-hidden="true">
             <img src={arrow} alt="" className={styles.arrowOpen} />
           </span>
-        </button>
+        </Button>
 
         <div className={styles.line} />
       </div>

@@ -7,7 +7,9 @@ export const ScheduleFilters = () => {
   return (
     <div className={styles.wrapper}>
       {intervals.map((interval) => (
-        <Button>{interval}</Button>
+        <Button key={interval} size="small" variant="gray">
+          {interval}
+        </Button>
       ))}
     </div>
   );
