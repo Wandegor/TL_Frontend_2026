@@ -1,3 +1,5 @@
+@use "styles/variables.scss" as vars;
+
 @mixin text($font-size, $color) {
   font-family: Inter, sans-serif;
   font-weight: 400;
@@ -62,15 +64,15 @@
 }
 
 .kicker {
-  @include text(20px, --txt-2);
+  @include text(20px, vars.$txt-2);
 }
 
 .title {
-  @include text(45px, --txt);
+  @include text(45px, vars.$txt);
 }
 
 .date {
-  @include text(15px, --txt-2);
+  @include text(15px, vars.$txt-2);
 }
 
 .currencyRows {
@@ -86,7 +88,7 @@
   padding: 0 3px;
   border: none;
   border-radius: 6px;
-  background: var(--line);
+  background: vars.$line;
   text-align: center;
   line-height: 100%;
 
