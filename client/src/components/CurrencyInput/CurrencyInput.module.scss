@@ -1,3 +1,5 @@
+@use "../../styles/variables.scss" as vars;
+
 // Значения взяты из макета: рамка #D9D9D9, радиус 6, поле 410×55,
 // разделитель — вертикальная линия высотой 35, текст Inter 22.
 $field-width: 410px;
@@ -23,7 +25,7 @@ $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
   width: $field-width;
   max-width: 100%;
   height: $field-height;
-  border: 1px solid var(--line);
+  border: 1px solid vars.$line;
   border-radius: 6px;
   background: #fff;
   font-family: Inter, sans-serif;
@@ -40,7 +42,7 @@ $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
   padding: 0 6px 0 $amount-padding-left;
   border: none;
   background: none;
-  color: var(--txt);
+  color: vars.$txt;
   font: inherit;
   font-size: $font-size;
 
@@ -54,7 +56,7 @@ $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
   align-self: center;
   width: 1px;
   height: 35px;
-  background: var(--line);
+  background: vars.$line;
 }
 
 .currency {
@@ -66,7 +68,7 @@ $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
   border: none;
   border-radius: 0;
 
-  color: var(--txt);
+  color: vars.$txt;
   font: inherit;
   font-size: $font-size;
 
@@ -80,7 +82,7 @@ $arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
 
   &:disabled {
     opacity: 1;
-    color: var(--txt);
-    -webkit-text-fill-color: var(--txt);
+    color: vars.$txt;
+    -webkit-text-fill-color: vars.$txt;
   }
 }

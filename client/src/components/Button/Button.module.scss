@@ -1,3 +1,5 @@
+@use "../../styles/variables.scss" as vars;
+
 .button {
   box-sizing: border-box;
   border: none;
@@ -45,16 +47,16 @@
 }
 
 .gray {
-  background: var(--line);
-  color: var(--txt);
+  background: vars.$line;
+  color: vars.$txt;
 }
 
 .blue {
-  background: var(--blue);
+  background: vars.$blue;
   color: #fff;
 }
 
 .red {
-  background: var(--red);
+  background: vars.$red;
   color: #fff;
 }
