@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f0d15e35-06d9-46a7-a198-3da7a856b6d2" name="Changes" comment="feat: сделал mixin для кнопок фильтра">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/Converter.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/Converter.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Filter/Filter.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Filter/Filter.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/types/currency.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/types/currencyPair.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/types/priceChange.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/MoreAbout/MoreAbout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MoreAbout/MoreAbout.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

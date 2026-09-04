@@ -23,14 +23,14 @@ export const MoreAbout = ({ baseCurrency, quoteCurrency }: MoreAboutProps) => {
 
       <article className={styles.article}>
         <h2>
-          {baseCurrency.title} - {baseCurrency.code} - {baseCurrency.symbol}
+          {baseCurrency.name} - {baseCurrency.code} - {baseCurrency.symbol}
         </h2>
         <p> {baseCurrency.description} </p>
       </article>
 
       <article className={styles.article}>
         <h2>
-          {quoteCurrency.title} - {quoteCurrency.code} - {quoteCurrency.symbol}
+          {quoteCurrency.name} - {quoteCurrency.code} - {quoteCurrency.symbol}
         </h2>
         <p> {quoteCurrency.description} </p>
       </article>

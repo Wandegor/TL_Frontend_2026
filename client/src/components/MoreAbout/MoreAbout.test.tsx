@@ -4,14 +4,14 @@ import { MoreAbout } from "./MoreAbout";
 
 const baseCurrency = {
   code: "PLN",
-  title: "Polish zloty",
+  name: "Polish zloty",
   symbol: "zł",
   description: "The official currency of Poland.",
 };
 
 const quoteCurrency = {
   code: "JPY",
-  title: "Japanese yen",
+  name: "Japanese yen",
   symbol: "¥",
   description: "The official currency of Japan.",
 };
