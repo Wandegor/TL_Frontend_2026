@@ -1,0 +1,62 @@
+@use "../../styles/variables.scss" as vars;
+
+.button {
+  box-sizing: border-box;
+  border: none;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: Inter, sans-serif;
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.small {
+  width: 95px;
+  height: 30px;
+
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 100%;
+}
+
+// MoreAbout
+.medium {
+  width: 215px;
+  height: 50px;
+
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 100%;
+}
+
+// Save/Clear filters
+.large {
+  width: 200px;
+  max-width: 100%;
+  height: 50px;
+  padding: 10px;
+
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 100%;
+}
+
+.gray {
+  background: vars.$line;
+  color: vars.$txt;
+}
+
+.blue {
+  background: vars.$blue;
+  color: #fff;
+}
+
+.red {
+  background: vars.$red;
+  color: #fff;
+}

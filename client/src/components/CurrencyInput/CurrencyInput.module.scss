@@ -1,0 +1,88 @@
+@use "../../styles/variables.scss" as vars;
+
+// Значения взяты из макета: рамка #D9D9D9, радиус 6, поле 410×55,
+// разделитель — вертикальная линия высотой 35, текст Inter 22.
+$field-width: 410px;
+$field-height: 55px;
+$font-size: 22px;
+
+$amount-width: 76px; // до разделителя
+$amount-padding-left: 14px;
+$currency-padding-left: 20px;
+
+$arrow-width: 14.17px;
+$arrow-height: 16px;
+$arrow-offset: 20px; // от правого края поля
+
+// Треугольник из макета (Polygon 3, заливка #D9D9D9), развёрнутый вершиной вниз.
+$arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='16' viewBox='0 0 14.1728 16'%3E%3Cpath d='M0 0H14.1728L7.08642 16Z' fill='%23D9D9D9'/%3E%3C/svg%3E");
+
+.field {
+  margin-top: 25px;
+  display: flex;
+  align-items: stretch;
+  box-sizing: border-box;
+  width: $field-width;
+  max-width: 100%;
+  height: $field-height;
+  border: 1px solid vars.$line;
+  border-radius: 6px;
+  background: #fff;
+  font-family: Inter, sans-serif;
+
+  &:focus-within {
+    border-color: #9e9e9e;
+  }
+}
+
+.amount {
+  flex: none;
+  box-sizing: border-box;
+  width: $amount-width;
+  padding: 0 6px 0 $amount-padding-left;
+  border: none;
+  background: none;
+  color: vars.$txt;
+  font: inherit;
+  font-size: $font-size;
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.divider {
+  flex: none;
+  align-self: center;
+  width: 1px;
+  height: 35px;
+  background: vars.$line;
+}
+
+.currency {
+  flex: 1;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 0 ($arrow-offset + $arrow-width) 0 $currency-padding-left;
+
+  border: none;
+  border-radius: 0;
+
+  color: vars.$txt;
+  font: inherit;
+  font-size: $font-size;
+
+  appearance: none;
+  background: $arrow no-repeat right $arrow-offset center;
+  background-size: $arrow-width $arrow-height;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:disabled {
+    opacity: 1;
+    color: vars.$txt;
+    -webkit-text-fill-color: vars.$txt;
+  }
+}
