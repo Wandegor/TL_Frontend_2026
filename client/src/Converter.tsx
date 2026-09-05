@@ -28,6 +28,7 @@ export function Converter() {
     clearFilters,
   } = useConverter();
 
+  // теоретически такого быть не может, но всё же
   if (!baseCurrency || !quoteCurrency) {
     return null;
   }

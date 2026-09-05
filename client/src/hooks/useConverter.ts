@@ -21,8 +21,8 @@ export function useConverter() {
       quote: CURRENCIES[3].code,
     },
   ]);
-  const baseCurrency = CURRENCIES.find((currency) => currency.code === base)!;
-  const quoteCurrency = CURRENCIES.find((currency) => currency.code === quote)!;
+  const baseCurrency = CURRENCIES.find((currency) => currency.code === base);
+  const quoteCurrency = CURRENCIES.find((currency) => currency.code === quote);
 
   const CURRENCY_CODES = CURRENCIES.map((currency) => currency.code);
 
