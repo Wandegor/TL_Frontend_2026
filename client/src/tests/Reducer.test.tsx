@@ -74,4 +74,18 @@ describe("converterReducer", () => {
       message,
     });
   });
+
+  it("stores price error for toast", () => {
+    const message = "COULD NOT GET DATA FROM THE SERVER";
+
+    const state = converterReducer(initialState, {
+      type: "FETCH_PRICE_ERROR",
+      payload: message,
+    });
+
+    expect(state.toastError).toEqual({
+      name: "Fetch_Price_Error",
+      message,
+    });
+  });
 });

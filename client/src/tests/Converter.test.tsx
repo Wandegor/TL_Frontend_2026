@@ -267,4 +267,25 @@ describe("Converter", () => {
       screen.queryByText(anotherCurrency.description),
     ).not.toBeInTheDocument();
   });
+
+  it("shows toast when price request fails", async () => {
+    mockedGetPriceChanges
+      .mockResolvedValueOnce([priceChanges[base.code][quote.code]])
+      // при втором вызове getPriceChanges ошибка(текст не влияет)
+      .mockRejectedValueOnce(new Error("lorem ipsum"));
+
+    render(<Converter />);
+
+    const quoteSelect = await screen.findByRole("combobox", {
+      name: "Целевая валюта",
+    });
+
+    fireEvent.change(quoteSelect, {
+      target: { value: anotherCurrency.code },
+    });
+
+    expect(
+      await screen.findByText("COULD NOT GET PRICE DATA FROM THE SERVER"),
+    ).toBeInTheDocument();
+  });
 });
