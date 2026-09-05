@@ -71,7 +71,9 @@ export function Converter() {
   ) {
     return (
       <div className={styles.status}>
-        <div className={styles.loading}>Loading /</div>
+        <div className={styles.loading}>
+          Loading <span className={styles.slashes} />
+        </div>
       </div>
     );
   }
