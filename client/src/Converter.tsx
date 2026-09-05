@@ -6,18 +6,33 @@ import { ScheduleFilters } from "./components/ScheduleFilters/ScheduleFilters.ts
 import graph from "./assets/graf.png";
 import { Button } from "./components/Button/Button.tsx";
 import { useConverter } from "./hooks/useConverter.ts";
-import { useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import { getCurrencies } from "./api/currencyApi.ts";
+import { converterReducer, initialState } from "./reducer/converterReducer.ts";
+import { mapCurrencyDtoToCurrency } from "./mappers/currencyMapper.ts";
 
 export function Converter() {
+  const [state, dispatch] = useReducer(converterReducer, initialState);
+
   useEffect(() => {
-    getCurrencies()
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const loadCurrencies = async () => {
+      dispatch({ type: "FETCH_START" });
+      try {
+        const currencyDtos = await getCurrencies();
+        const currencies = currencyDtos.map(mapCurrencyDtoToCurrency);
+
+        dispatch({
+          type: "FETCH_CURRENCIES_SUCCESS",
+          payload: currencies,
+        });
+      } catch {
+        dispatch({
+          type: "FETCH_ERROR",
+          payload: "failed to load currencies",
+        });
+      }
+    };
+    loadCurrencies();
   }, []);
 
   const {
@@ -28,7 +43,7 @@ export function Converter() {
     filters,
     baseCurrency,
     quoteCurrency,
-    CURRENCY_CODES,
+    currencyCodes,
     priceChange,
     savePair,
     selectPair,
@@ -38,7 +53,20 @@ export function Converter() {
     handleAmountChange,
     handleQuoteAmountChange,
     clearFilters,
-  } = useConverter();
+  } = useConverter(state.currencies);
+
+  if (state.error) {
+    return <div>{state.error.message}</div>;
+  }
+
+  if (
+    state.isLoading ||
+    !baseCurrency ||
+    !quoteCurrency ||
+    state.currencies.length === 0
+  ) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <section className={styles.card}>
@@ -59,7 +87,7 @@ export function Converter() {
             <CurrencyInput
               amount={amount}
               currencyCode={base}
-              currencies={CURRENCY_CODES}
+              currencies={currencyCodes}
               onAmountChange={handleAmountChange}
               onCurrencyChange={handleBaseChange}
               amountLabel="Сумма"
@@ -71,7 +99,7 @@ export function Converter() {
             <CurrencyInput
               amount={converted}
               currencyCode={quote}
-              currencies={CURRENCY_CODES}
+              currencies={currencyCodes}
               onAmountChange={handleQuoteAmountChange}
               onCurrencyChange={handleQuoteChange}
               amountLabel="Результат"
