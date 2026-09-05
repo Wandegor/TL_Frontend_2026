@@ -41,11 +41,14 @@ export function Converter() {
     }
     setFilters((prev) => [...prev, pair]);
   };
+  const convertFormula = (amount: number, rate: number) => {
+    return Number((amount * rate).toFixed(2));
+  };
   const selectPair = (pair: CurrencyPair) => {
     const newRate = priceChanges[pair.base][pair.quote].price;
     setBase(pair.base);
     setQuote(pair.quote);
-    setConverted(Number((amount * newRate).toFixed(2)));
+    setConverted(convertFormula(amount, newRate));
   };
   const handleBaseChange = (value: string) => {
     if (value === quote) {
@@ -53,7 +56,7 @@ export function Converter() {
     }
     const newRate = priceChanges[value][quote].price;
     setBase(value);
-    setConverted(Number((amount * newRate).toFixed(2)));
+    setConverted(convertFormula(amount, newRate));
   };
   const handleQuoteChange = (value: string) => {
     if (value === base) {
@@ -61,17 +64,17 @@ export function Converter() {
     }
     const newRate = priceChanges[base][value].price;
     setQuote(value);
-    setConverted(Number((amount * newRate).toFixed(2)));
+    setConverted(convertFormula(amount, newRate));
   };
   const handleSwap = () => {
     const newRate = priceChanges[quote][base].price;
     setBase(quote);
     setQuote(base);
-    setConverted(Number((amount * newRate).toFixed(2)));
+    setConverted(convertFormula(amount, newRate));
   };
   const handleAmountChange = (value: number) => {
     setAmount(value);
-    setConverted(Number((value * rate).toFixed(2)));
+    setConverted(convertFormula(value, rate));
   };
   const handleQuoteAmountChange = (value: number) => {
     setConverted(value);
@@ -86,16 +89,13 @@ export function Converter() {
         <div className={styles.left}>
           <header className={styles.head}>
             <p className={styles.kicker}>
-              {" "}
-              {amount} {baseCurrency.name} is{" "}
-            </p>{" "}
+              {amount} {baseCurrency.name} is
+            </p>
             <h1 className={styles.title}>
-              {" "}
-              {converted} {quoteCurrency.name}{" "}
-            </h1>{" "}
+              {converted} {quoteCurrency.name}
+            </h1>
             <p className={styles.date}>
-              {" "}
-              {new Date(priceChange.dateTime).toUTCString()}{" "}
+              {new Date(priceChange.dateTime).toUTCString()}
             </p>
           </header>
           <div className={styles.currencyRows}>
@@ -107,10 +107,9 @@ export function Converter() {
               onCurrencyChange={handleBaseChange}
               amountLabel="Сумма"
               currencyLabel="Исходная валюта"
-            />{" "}
+            />
             <Button size="tiny" variant="gray" onClick={handleSwap}>
-              {" "}
-              swap{" "}
+              swap
             </Button>
             <CurrencyInput
               amount={converted}
@@ -131,7 +130,7 @@ export function Converter() {
           />
         </div>
         <div className={styles.right}>
-          <ScheduleFilters />{" "}
+          <ScheduleFilters />
           <img
             className={styles.schedule}
             src={graph}
