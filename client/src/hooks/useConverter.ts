@@ -13,6 +13,10 @@ export function useConverter(
   const [converted, setConverted] = useState(0);
   const [filters, setFilters] = useState<CurrencyPair[]>([]);
 
+  const convertFormula = (amount: number, rate: number) => {
+    return Number((amount * rate).toFixed(2));
+  };
+
   useEffect(() => {
     if (currencies.length < 2) return;
 
@@ -33,6 +37,14 @@ export function useConverter(
     });
   }, [currencies]);
 
+  useEffect(() => {
+    if (!priceChange) {
+      return;
+    }
+
+    setConverted(convertFormula(amount, priceChange.price));
+  }, [priceChange]);
+
   const baseCurrency = currencies.find((currency) => currency.code === base);
   const quoteCurrency = currencies.find((currency) => currency.code === quote);
   const currencyCodes = currencies.map((currency) => currency.code);
@@ -47,10 +59,6 @@ export function useConverter(
       return;
     }
     setFilters((prev) => [...prev, pair]);
-  };
-
-  const convertFormula = (amount: number, rate: number) => {
-    return Number((amount * rate).toFixed(2));
   };
 
   const handleAmountChange = (value: number) => {
