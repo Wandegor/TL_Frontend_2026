@@ -36,6 +36,8 @@ export function Converter() {
     clearFilters,
   } = useConverter(state.currencies, state.priceHistory.at(-1));
 
+  const fromDateTime = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+
   const loadPriceHistory = async (base: string, quote: string) => {
     dispatch({ type: "FETCH_START" });
 
@@ -43,10 +45,11 @@ export function Converter() {
       const priceChangeDtos = await getPriceChanges({
         paymentCurrency: base,
         purchasedCurrency: quote,
-        fromDateTime: "2026-05-01T00:00:00Z",
+        fromDateTime: fromDateTime,
       });
 
       const priceHistory = priceChangeDtos.map(mapPriceChangeDtoToPriceChange);
+      console.log("priceHistory: ", priceHistory);
 
       dispatch({
         type: "FETCH_PRICE_SUCCESS",
