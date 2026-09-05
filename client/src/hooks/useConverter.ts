@@ -24,6 +24,11 @@ export function useConverter() {
   const baseCurrency = CURRENCIES.find((currency) => currency.code === base);
   const quoteCurrency = CURRENCIES.find((currency) => currency.code === quote);
 
+  // теоретически такого быть не может, но всё же
+  if (!baseCurrency || !quoteCurrency) {
+    throw new Error("Currency not found");
+  }
+
   const CURRENCY_CODES = CURRENCIES.map((currency) => currency.code);
 
   const priceChange = priceChanges[base][quote];
