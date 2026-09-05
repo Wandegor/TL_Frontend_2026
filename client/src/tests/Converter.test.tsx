@@ -1,12 +1,66 @@
-import { describe, expect, it } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Converter } from "../Converter.tsx";
-import { CURRENCIES } from "../data/currencies.ts";
-import { priceChanges } from "../data/priceChanges.ts";
+import { getCurrencies } from "../api/currencyApi.ts";
+import { getPriceChanges } from "../api/priceChangeApi.ts";
 
-const base = CURRENCIES[1];
-const quote = CURRENCIES[3];
-const anotherCurrency = CURRENCIES[0];
+vi.mock("../api/currencyApi.ts");
+vi.mock("../api/priceChangeApi.ts");
+
+const currencies = [
+  {
+    code: "CAD",
+    name: "Canadian dollar",
+    description: "Canadian currency",
+    symbol: "$",
+  },
+  {
+    code: "AUD",
+    name: "Australian dollar",
+    description: "Australian currency",
+    symbol: "$",
+  },
+  {
+    code: "JPY",
+    name: "Japanese yen",
+    description: "Japanese currency",
+    symbol: "¥",
+  },
+];
+
+const base = currencies[0];
+const quote = currencies[1];
+const anotherCurrency = currencies[2];
+
+const priceChanges = {
+  [base.code]: {
+    [quote.code]: {
+      purchasedCurrencyCode: quote.code,
+      paymentCurrencyCode: base.code,
+      price: 1.11,
+      dateTime: "2026-09-05T10:00:00.000Z",
+    },
+
+    [anotherCurrency.code]: {
+      purchasedCurrencyCode: anotherCurrency.code,
+      paymentCurrencyCode: base.code,
+      price: 0.74,
+      dateTime: "2026-09-05T10:01:00.000Z",
+    },
+  },
+
+  [quote.code]: {
+    [base.code]: {
+      purchasedCurrencyCode: base.code,
+      paymentCurrencyCode: quote.code,
+      price: 0.9,
+      dateTime: "2026-09-05T10:02:00.000Z",
+    },
+  },
+};
+
+const mockedGetCurrencies = vi.mocked(getCurrencies);
+const mockedGetPriceChanges = vi.mocked(getPriceChanges);
 
 const initialAmount = 100;
 
@@ -14,11 +68,31 @@ const calculateConverted = (amount: number, rate: number) => {
   return Number((amount * rate).toFixed(2));
 };
 
+beforeEach(() => {
+  vi.clearAllMocks();
+
+  mockedGetCurrencies.mockResolvedValue(currencies);
+
+  mockedGetPriceChanges.mockImplementation(
+    async ({ paymentCurrency, purchasedCurrency }) => {
+      const priceChange = priceChanges[paymentCurrency]?.[purchasedCurrency];
+
+      if (!priceChange) {
+        throw new Error(
+          `No mock price for ${paymentCurrency}/${purchasedCurrency}`,
+        );
+      }
+
+      return [priceChange];
+    },
+  );
+});
+
 describe("Converter", () => {
-  it("renders currency fields and selects with mock data", () => {
+  it("renders currency fields and selects with data", async () => {
     render(<Converter />);
 
-    const amountInput = screen.getByRole("spinbutton", {
+    const amountInput = await screen.findByRole("spinbutton", {
       name: "Сумма",
     });
 
@@ -34,22 +108,24 @@ describe("Converter", () => {
       name: "Целевая валюта",
     });
 
-    expect(amountInput).toBeInTheDocument();
-    expect(resultInput).toBeInTheDocument();
-    expect(baseSelect).toBeInTheDocument();
-    expect(quoteSelect).toBeInTheDocument();
-
     expect(amountInput).toHaveValue(initialAmount);
+    expect(resultInput).toHaveValue(
+      calculateConverted(
+        initialAmount,
+        priceChanges[base.code][quote.code].price,
+      ),
+    );
+
     expect(baseSelect).toHaveValue(base.code);
     expect(quoteSelect).toHaveValue(quote.code);
 
-    expect(screen.getAllByRole("option")).toHaveLength(CURRENCIES.length * 2);
+    expect(screen.getAllByRole("option")).toHaveLength(currencies.length * 2);
   });
 
-  it("recalculates conversion when amount changes", () => {
+  it("recalculates conversion when amount changes", async () => {
     render(<Converter />);
 
-    const amountInput = screen.getByRole("spinbutton", {
+    const amountInput = await screen.findByRole("spinbutton", {
       name: "Сумма",
     });
 
@@ -59,11 +135,9 @@ describe("Converter", () => {
 
     const initialRate = priceChanges[base.code][quote.code].price;
 
-    const expectedInitialResult = calculateConverted(
-      initialAmount,
-      initialRate,
+    expect(resultInput).toHaveValue(
+      calculateConverted(initialAmount, initialRate),
     );
-    expect(resultInput).toHaveValue(expectedInitialResult);
 
     const newAmount = 2;
 
@@ -71,15 +145,13 @@ describe("Converter", () => {
       target: { value: String(newAmount) },
     });
 
-    const expectedNewResult = calculateConverted(newAmount, initialRate);
-
-    expect(resultInput).toHaveValue(expectedNewResult);
+    expect(resultInput).toHaveValue(calculateConverted(newAmount, initialRate));
   });
 
-  it("recalculates conversion when currency pair changes", () => {
+  it("recalculates conversion when currency pair changes", async () => {
     render(<Converter />);
 
-    const quoteSelect = screen.getByRole("combobox", {
+    const quoteSelect = await screen.findByRole("combobox", {
       name: "Целевая валюта",
     });
 
@@ -91,17 +163,21 @@ describe("Converter", () => {
       target: { value: anotherCurrency.code },
     });
 
-    const rate = priceChanges[base.code][anotherCurrency.code].price;
-
-    const expectedResult = calculateConverted(initialAmount, rate);
-
-    expect(resultInput).toHaveValue(expectedResult);
+    await waitFor(() => {
+      expect(quoteSelect).toHaveValue(anotherCurrency.code);
+      expect(resultInput).toHaveValue(
+        calculateConverted(
+          initialAmount,
+          priceChanges[base.code][anotherCurrency.code].price,
+        ),
+      );
+    });
   });
 
-  it("does not allow selecting the same currency", () => {
+  it("does not allow selecting the same currency", async () => {
     render(<Converter />);
 
-    const baseSelect = screen.getByRole("combobox", {
+    const baseSelect = await screen.findByRole("combobox", {
       name: "Исходная валюта",
     });
 
@@ -117,10 +193,10 @@ describe("Converter", () => {
     expect(quoteSelect).toHaveValue(quote.code);
   });
 
-  it("swaps currencies and recalculates the result", () => {
+  it("swaps currencies and recalculates the result", async () => {
     render(<Converter />);
 
-    const baseSelect = screen.getByRole("combobox", {
+    const baseSelect = await screen.findByRole("combobox", {
       name: "Исходная валюта",
     });
 
@@ -141,20 +217,22 @@ describe("Converter", () => {
 
     fireEvent.click(swapButton);
 
-    expect(baseSelect).toHaveValue(quote.code);
-    expect(quoteSelect).toHaveValue(base.code);
-
-    const swappedRate = priceChanges[quote.code][base.code].price;
-
-    const expectedResult = calculateConverted(initialAmount, swappedRate);
-
-    expect(resultInput).toHaveValue(expectedResult);
+    await waitFor(() => {
+      expect(baseSelect).toHaveValue(quote.code);
+      expect(quoteSelect).toHaveValue(base.code);
+      expect(resultInput).toHaveValue(
+        calculateConverted(
+          initialAmount,
+          priceChanges[quote.code][base.code].price,
+        ),
+      );
+    });
   });
 
-  it("resets MoreAbout state when currency pair changes", () => {
+  it("resets MoreAbout state when currency pair changes", async () => {
     render(<Converter />);
 
-    const moreAboutButton = screen.getByRole("button", {
+    const moreAboutButton = await screen.findByRole("button", {
       name: `${base.code}/${quote.code}: about`,
     });
 
@@ -177,13 +255,12 @@ describe("Converter", () => {
     });
 
     // Пересоздание благодаря key
-    const newMoreAboutButton = screen.getByRole("button", {
+    const newMoreAboutButton = await screen.findByRole("button", {
       name: `${anotherCurrency.code}/${quote.code}: about`,
     });
 
     expect(newMoreAboutButton).toBeInTheDocument();
 
-    // Снова закрыт
     expect(
       screen.queryByText(anotherCurrency.description),
     ).not.toBeInTheDocument();
