@@ -37,9 +37,6 @@ export function useConverter(
   const quoteCurrency = currencies.find((currency) => currency.code === quote);
   const currencyCodes = currencies.map((currency) => currency.code);
 
-  if (!priceChange) {
-    console.log("priceHistory не загрузилась");
-  }
   const rate = priceChange?.price ?? 0; // временно
 
   const savePair = (pair: CurrencyPair) => {
