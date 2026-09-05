@@ -3,14 +3,14 @@ import type { PriceChange } from "../types/priceChange.ts";
 
 export type ConverterState = {
   currencies: Currency[];
-  priceChange: PriceChange | null;
+  priceHistory: PriceChange[];
   isLoading: boolean;
   error: Error | null;
 };
 
 export const initialState: ConverterState = {
   currencies: [],
-  priceChange: null,
+  priceHistory: [],
   isLoading: false,
   error: null,
 };
@@ -18,7 +18,7 @@ export const initialState: ConverterState = {
 type Action =
   | { type: "FETCH_START" }
   | { type: "FETCH_CURRENCIES_SUCCESS"; payload: Currency[] }
-  | { type: "FETCH_PRICE_SUCCESS"; payload: PriceChange }
+  | { type: "FETCH_PRICE_SUCCESS"; payload: PriceChange[] }
   | { type: "FETCH_ERROR"; payload: string };
 
 export const converterReducer = (state: ConverterState, action: Action) => {
@@ -39,7 +39,7 @@ export const converterReducer = (state: ConverterState, action: Action) => {
       return {
         ...state,
         isLoading: false,
-        priceChange: action.payload,
+        priceHistory: action.payload,
       };
     case "FETCH_ERROR":
       return {

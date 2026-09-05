@@ -4,8 +4,3 @@ export type PriceChange = {
   price: number;
   dateTime: Date;
 };
-export type PriceChanges = {
-  [fromCurrency: string]: {
-    [toCurrency: string]: PriceChange;
-  };
-};

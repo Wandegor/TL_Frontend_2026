@@ -10,30 +10,11 @@ import { useEffect, useReducer } from "react";
 import { getCurrencies } from "./api/currencyApi.ts";
 import { converterReducer, initialState } from "./reducer/converterReducer.ts";
 import { mapCurrencyDtoToCurrency } from "./mappers/currencyMapper.ts";
+import { getPriceChanges } from "./api/priceChangeApi.ts";
+import { mapPriceChangeDtoToPriceChange } from "./mappers/priceChangeMapper.ts";
 
 export function Converter() {
   const [state, dispatch] = useReducer(converterReducer, initialState);
-
-  useEffect(() => {
-    const loadCurrencies = async () => {
-      dispatch({ type: "FETCH_START" });
-      try {
-        const currencyDtos = await getCurrencies();
-        const currencies = currencyDtos.map(mapCurrencyDtoToCurrency);
-
-        dispatch({
-          type: "FETCH_CURRENCIES_SUCCESS",
-          payload: currencies,
-        });
-      } catch {
-        dispatch({
-          type: "FETCH_ERROR",
-          payload: "COULD NOT GET DATA FROM THE SERVER",
-        });
-      }
-    };
-    loadCurrencies();
-  }, []);
 
   const {
     base,
@@ -53,7 +34,61 @@ export function Converter() {
     handleAmountChange,
     handleQuoteAmountChange,
     clearFilters,
-  } = useConverter(state.currencies);
+  } = useConverter(state.currencies, state.priceHistory.at(-1));
+
+  const loadPriceHistory = async (base: string, quote: string) => {
+    dispatch({ type: "FETCH_START" });
+
+    try {
+      const priceChangeDtos = await getPriceChanges({
+        paymentCurrency: base,
+        purchasedCurrency: quote,
+        fromDateTime: "2026-05-01T00:00:00Z",
+      });
+
+      const priceHistory = priceChangeDtos.map(mapPriceChangeDtoToPriceChange);
+
+      dispatch({
+        type: "FETCH_PRICE_SUCCESS",
+        payload: priceHistory,
+      });
+    } catch {
+      dispatch({
+        type: "FETCH_ERROR",
+        payload: "COULD NOT GET DATA FROM THE SERVER",
+      });
+    }
+  };
+
+  const loadCurrencies = async () => {
+    dispatch({ type: "FETCH_START" });
+    try {
+      const currencyDtos = await getCurrencies();
+      const currencies = currencyDtos.map(mapCurrencyDtoToCurrency);
+
+      dispatch({
+        type: "FETCH_CURRENCIES_SUCCESS",
+        payload: currencies,
+      });
+    } catch {
+      dispatch({
+        type: "FETCH_ERROR",
+        payload: "COULD NOT GET DATA FROM THE SERVER",
+      });
+    }
+  };
+
+  useEffect(() => {
+    loadCurrencies();
+  }, []);
+
+  useEffect(() => {
+    if (!base || !quote) {
+      return;
+    }
+
+    loadPriceHistory(base, quote);
+  }, [base, quote]);
 
   if (state.error) {
     return (
@@ -65,8 +100,11 @@ export function Converter() {
 
   if (
     state.isLoading ||
+    !base ||
+    !quote ||
     !baseCurrency ||
     !quoteCurrency ||
+    !priceChange ||
     state.currencies.length === 0
   ) {
     return (
