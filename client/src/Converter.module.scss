@@ -1,0 +1,176 @@
+@use "styles/variables.scss" as vars;
+
+@mixin text($font-size, $color) {
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: $font-size;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: $color;
+}
+
+.card {
+  max-width: 1258px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+  padding: 50px 40px;
+  border: 30px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 16px rgb(24 105 227 / 8%);
+}
+
+@media (max-width: 500px) {
+  .card {
+    padding: 15px;
+  }
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.left {
+  width: 410px; // предположительно есть максимум
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule {
+  margin-top: 10px;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.kicker {
+  @include text(20px, vars.$txt-2);
+}
+
+.title {
+  @include text(45px, vars.$txt);
+}
+
+.date {
+  @include text(15px, vars.$txt-2);
+}
+
+.currencyRows {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: self-start;
+}
+
+.swapButton {
+  margin: 3px 0 3px 0;
+  height: 20px;
+  padding: 0 3px;
+  border: none;
+  border-radius: 6px;
+  background: vars.$line;
+  text-align: center;
+  line-height: 100%;
+
+  cursor: pointer;
+}
+
+.status {
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading {
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 100%;
+  text-align: center;
+  color: vars.$txt;
+}
+
+.slashes::after {
+  content: "/";
+  animation: loading 2.5s steps(3, end) infinite;
+}
+
+@keyframes loading {
+  0% {
+    content: "/";
+  }
+
+  33% {
+    content: "//";
+  }
+
+  66% {
+    content: "///";
+  }
+
+  100% {
+    content: "/";
+  }
+}
+
+.error {
+  width: 337px;
+  height: 87px;
+  padding: 0 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 30px;
+
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 120%;
+  text-align: center;
+
+  color: #FFFFFF;
+  background: #FF696A;
+}
+
+// заготовка из лекции, решил пока не убирать
+//.result {
+//  margin: 0;
+//  font-size: 40px;
+//  font-weight: 600;
+//  line-height: 1.1;
+//  color: vars.$blue;
+//}
+//
+//.unit {
+//  font-size: 24px;
+//  font-weight: 500;
+//  color: vars.$txt-2;
+//}
+//
+//.rate {
+//  margin: 0;
+//  color: vars.$txt-2;
+//}
