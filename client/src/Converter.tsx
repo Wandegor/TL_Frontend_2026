@@ -6,8 +6,20 @@ import { ScheduleFilters } from "./components/ScheduleFilters/ScheduleFilters.ts
 import graph from "./assets/graf.png";
 import { Button } from "./components/Button/Button.tsx";
 import { useConverter } from "./hooks/useConverter.ts";
+import { useEffect } from "react";
+import { getCurrencies } from "./api/currencyApi.ts";
 
 export function Converter() {
+  useEffect(() => {
+    getCurrencies()
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const {
     base,
     quote,
