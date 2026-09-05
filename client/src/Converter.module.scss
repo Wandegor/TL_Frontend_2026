@@ -95,36 +95,59 @@
   cursor: pointer;
 }
 
+.status {
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading {
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 100%;
+  text-align: center;
+  color: vars.$txt;
+}
+
+.error {
+  width: 337px;
+  height: 87px;
+  padding: 0 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 30px;
+
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 120%;
+  text-align: center;
+
+  color: #FFFFFF;
+  background: #FF696A;
+}
+
 // заготовка из лекции, решил пока не убирать
 //.result {
 //  margin: 0;
 //  font-size: 40px;
 //  font-weight: 600;
 //  line-height: 1.1;
-//  color: var(--blue);
+//  color: vars.$blue;
 //}
 //
 //.unit {
 //  font-size: 24px;
 //  font-weight: 500;
-//  color: var(--txt-2);
+//  color: vars.$txt-2;
 //}
 //
 //.rate {
 //  margin: 0;
-//  color: var(--txt-2);
-//}
-//
-///* Пригодится на шаге 1, когда появятся состояния загрузки и ошибки. */
-//.loading {
-//  margin: 0;
-//  color: var(--txt-2);
-//}
-//
-//.error {
-//  margin: 0;
-//  padding: 12px 14px;
-//  border-radius: 8px;
-//  background: #fff3f0;
-//  color: var(--red-d);
+//  color: vars.$txt-2;
 //}

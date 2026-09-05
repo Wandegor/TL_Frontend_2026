@@ -28,7 +28,7 @@ export function Converter() {
       } catch {
         dispatch({
           type: "FETCH_ERROR",
-          payload: "failed to load currencies",
+          payload: "COULD NOT GET DATA FROM THE SERVER",
         });
       }
     };
@@ -56,7 +56,11 @@ export function Converter() {
   } = useConverter(state.currencies);
 
   if (state.error) {
-    return <div>{state.error.message}</div>;
+    return (
+      <div className={styles.status}>
+        <div className={styles.error}>{state.error.message}</div>
+      </div>
+    );
   }
 
   if (
@@ -65,7 +69,11 @@ export function Converter() {
     !quoteCurrency ||
     state.currencies.length === 0
   ) {
-    return <div>Loading...</div>;
+    return (
+      <div className={styles.status}>
+        <div className={styles.loading}>Loading /</div>
+      </div>
+    );
   }
 
   return (
