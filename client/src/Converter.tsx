@@ -12,6 +12,7 @@ import { converterReducer, initialState } from "./reducer/converterReducer.ts";
 import { mapCurrencyDtoToCurrency } from "./mappers/currencyMapper.ts";
 import { getPriceChanges } from "./api/priceChangeApi.ts";
 import { mapPriceChangeDtoToPriceChange } from "./mappers/priceChangeMapper.ts";
+import { Toast } from "./components/Toast/Toast.tsx";
 
 export function Converter() {
   const [state, dispatch] = useReducer(converterReducer, initialState);
@@ -39,7 +40,7 @@ export function Converter() {
   const fromDateTime = new Date(Date.now() - 5 * 60 * 1000).toISOString();
 
   const loadPriceHistory = async (base: string, quote: string) => {
-    dispatch({ type: "FETCH_START" });
+    dispatch({ type: "FETCH_PRICE_START" });
 
     try {
       const priceChangeDtos = await getPriceChanges({
@@ -49,7 +50,6 @@ export function Converter() {
       });
 
       const priceHistory = priceChangeDtos.map(mapPriceChangeDtoToPriceChange);
-      console.log("priceHistory: ", priceHistory);
 
       dispatch({
         type: "FETCH_PRICE_SUCCESS",
@@ -57,8 +57,8 @@ export function Converter() {
       });
     } catch {
       dispatch({
-        type: "FETCH_ERROR",
-        payload: "COULD NOT GET DATA FROM THE SERVER",
+        type: "FETCH_PRICE_ERROR",
+        payload: "COULD NOT GET PRICE DATA FROM THE SERVER",
       });
     }
   };
@@ -120,66 +120,75 @@ export function Converter() {
   }
 
   return (
-    <section className={styles.card}>
-      <div className={styles.top}>
-        <div className={styles.left}>
-          <header className={styles.head}>
-            <p className={styles.kicker}>
-              {amount} {baseCurrency.name} is
-            </p>
-            <h1 className={styles.title}>
-              {converted} {quoteCurrency.name}
-            </h1>
-            <p className={styles.date}>
-              {new Date(priceChange.dateTime).toUTCString()}
-            </p>
-          </header>
-          <div className={styles.currencyRows}>
-            <CurrencyInput
-              amount={amount}
-              currencyCode={base}
-              currencies={currencyCodes}
-              onAmountChange={handleAmountChange}
-              onCurrencyChange={handleBaseChange}
-              amountLabel="Сумма"
-              currencyLabel="Исходная валюта"
-            />
-            <Button size="tiny" variant="gray" onClick={handleSwap}>
-              swap
-            </Button>
-            <CurrencyInput
-              amount={converted}
-              currencyCode={quote}
-              currencies={currencyCodes}
-              onAmountChange={handleQuoteAmountChange}
-              onCurrencyChange={handleQuoteChange}
-              amountLabel="Результат"
-              currencyLabel="Целевая валюта"
+    <>
+      {state.toastError && (
+        <Toast
+          message={state.toastError.message}
+          onClose={() => dispatch({ type: "CLEAR_PRICE_ERROR" })}
+        ></Toast>
+      )}
+
+      <section className={styles.card}>
+        <div className={styles.top}>
+          <div className={styles.left}>
+            <header className={styles.head}>
+              <p className={styles.kicker}>
+                {amount} {baseCurrency.name} is
+              </p>
+              <h1 className={styles.title}>
+                {converted} {quoteCurrency.name}
+              </h1>
+              <p className={styles.date}>
+                {new Date(priceChange.dateTime).toUTCString()}
+              </p>
+            </header>
+            <div className={styles.currencyRows}>
+              <CurrencyInput
+                amount={amount}
+                currencyCode={base}
+                currencies={currencyCodes}
+                onAmountChange={handleAmountChange}
+                onCurrencyChange={handleBaseChange}
+                amountLabel="Сумма"
+                currencyLabel="Исходная валюта"
+              />
+              <Button size="tiny" variant="gray" onClick={handleSwap}>
+                swap
+              </Button>
+              <CurrencyInput
+                amount={converted}
+                currencyCode={quote}
+                currencies={currencyCodes}
+                onAmountChange={handleQuoteAmountChange}
+                onCurrencyChange={handleQuoteChange}
+                amountLabel="Результат"
+                currencyLabel="Целевая валюта"
+              />
+            </div>
+            <Filter
+              currentPair={{ base, quote }}
+              savedPairs={filters}
+              onSave={savePair}
+              onSelect={(pair) => selectPair(pair)}
+              onClear={clearFilters}
             />
           </div>
-          <Filter
-            currentPair={{ base, quote }}
-            savedPairs={filters}
-            onSave={savePair}
-            onSelect={(pair) => selectPair(pair)}
-            onClear={clearFilters}
-          />
+          <div className={styles.right}>
+            <ScheduleFilters />
+            <img
+              className={styles.schedule}
+              src={graph}
+              alt="Currency exchange rate graph"
+            />
+          </div>
         </div>
-        <div className={styles.right}>
-          <ScheduleFilters />
-          <img
-            className={styles.schedule}
-            src={graph}
-            alt="Currency exchange rate graph"
-          />
-        </div>
-      </div>
-      {/*Когда меняется валюта, меняется ключ => пересоздание компонента и isOpen внутри сбрасывается*/}{" "}
-      <MoreAbout
-        key={`${base}-${quote}`}
-        baseCurrency={baseCurrency}
-        quoteCurrency={quoteCurrency}
-      />
-    </section>
+        {/*Когда меняется валюта, меняется ключ => пересоздание компонента и isOpen внутри сбрасывается*/}{" "}
+        <MoreAbout
+          key={`${base}-${quote}`}
+          baseCurrency={baseCurrency}
+          quoteCurrency={quoteCurrency}
+        />
+      </section>
+    </>
   );
 }

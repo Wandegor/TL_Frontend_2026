@@ -6,6 +6,7 @@ export type ConverterState = {
   priceHistory: PriceChange[];
   isLoading: boolean;
   error: Error | null;
+  toastError: Error | null;
 };
 
 export const initialState: ConverterState = {
@@ -13,13 +14,17 @@ export const initialState: ConverterState = {
   priceHistory: [],
   isLoading: false,
   error: null,
+  toastError: null,
 };
 
 type Action =
   | { type: "FETCH_START" }
   | { type: "FETCH_CURRENCIES_SUCCESS"; payload: Currency[] }
+  | { type: "FETCH_ERROR"; payload: string }
+  | { type: "FETCH_PRICE_START" }
   | { type: "FETCH_PRICE_SUCCESS"; payload: PriceChange[] }
-  | { type: "FETCH_ERROR"; payload: string };
+  | { type: "FETCH_PRICE_ERROR"; payload: string }
+  | { type: "CLEAR_PRICE_ERROR" };
 
 export const converterReducer = (state: ConverterState, action: Action) => {
   switch (action.type) {
@@ -35,17 +40,32 @@ export const converterReducer = (state: ConverterState, action: Action) => {
         isLoading: false,
         currencies: action.payload,
       };
-    case "FETCH_PRICE_SUCCESS":
-      return {
-        ...state,
-        isLoading: false,
-        priceHistory: action.payload,
-      };
     case "FETCH_ERROR":
       return {
         ...state,
         isLoading: false,
         error: { name: "Fetch_Error", message: action.payload },
+      };
+
+    case "FETCH_PRICE_START":
+      return {
+        ...state,
+        toastError: null,
+      };
+    case "FETCH_PRICE_SUCCESS":
+      return {
+        ...state,
+        priceHistory: action.payload,
+      };
+    case "FETCH_PRICE_ERROR":
+      return {
+        ...state,
+        toastError: { name: "Fetch_Price_Error", message: action.payload },
+      };
+    case "CLEAR_PRICE_ERROR":
+      return {
+        ...state,
+        toastError: null,
       };
     default:
       return state;
