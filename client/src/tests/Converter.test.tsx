@@ -109,12 +109,14 @@ describe("Converter", () => {
     });
 
     expect(amountInput).toHaveValue(initialAmount);
-    expect(resultInput).toHaveValue(
-      calculateConverted(
-        initialAmount,
-        priceChanges[base.code][quote.code].price,
-      ),
-    );
+    await waitFor(() => {
+      expect(resultInput).toHaveValue(
+        calculateConverted(
+          initialAmount,
+          priceChanges[base.code][quote.code].price,
+        ),
+      );
+    });
 
     expect(baseSelect).toHaveValue(base.code);
     expect(quoteSelect).toHaveValue(quote.code);
