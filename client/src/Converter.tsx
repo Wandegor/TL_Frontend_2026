@@ -112,7 +112,7 @@ export function Converter() {
 
     const controller = new AbortController();
 
-    let timeoutId: number;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
     // Рекурсивное обновление без наложений
     const updatePriceHistory = async () => {
