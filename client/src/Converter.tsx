@@ -61,6 +61,10 @@ export function Converter() {
         signal,
       );
 
+      if (signal.aborted) {
+        return;
+      }
+
       const priceHistory = priceChangeDtos.map(mapPriceChangeDtoToPriceChange);
 
       dispatch({
@@ -108,14 +112,23 @@ export function Converter() {
 
     const controller = new AbortController();
 
-    loadPriceHistory(base, quote, timeInterval, controller.signal);
+    let timeoutId: number;
 
-    const intervalId = setInterval(() => {
-      loadPriceHistory(base, quote, timeInterval, controller.signal);
-    }, 10000);
+    // Рекурсивное обновление без наложений
+    const updatePriceHistory = async () => {
+      await loadPriceHistory(base, quote, timeInterval, controller.signal);
+
+      if (controller.signal.aborted) {
+        return;
+      }
+
+      timeoutId = setTimeout(updatePriceHistory, 10000);
+    };
+
+    updatePriceHistory();
 
     return () => {
-      clearInterval(intervalId);
+      clearInterval(timeoutId);
       controller.abort();
     };
   }, [base, quote, timeInterval]);
