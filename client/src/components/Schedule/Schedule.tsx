@@ -11,7 +11,6 @@ export const Schedule = ({ priceHistory }: ScheduleProps) => {
     time: new Date(priceChange.dateTime).toLocaleTimeString(),
     price: priceChange.price,
   }));
-  console.log(data);
   return (
     <div className={styles.wrapper}>
       <LineChart
