@@ -13,11 +13,11 @@ export const Schedule = ({ priceHistory }: ScheduleProps) => {
   }));
   return (
     <div className={styles.wrapper}>
-      <LineChart width={400} height={400} data={data}>
-        <XAxis dataKey="time" />
+      <LineChart responsive={true} data={data} margin={{ left: -15 }}>
+        <XAxis dataKey="time" padding={{ right: 15 }} />
         <YAxis dataKey="price" />
         <Tooltip />
-        <Line type="monotone" dataKey="price" />\
+        <Line type="linear" dataKey="price" />\
       </LineChart>
     </div>
   );

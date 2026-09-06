@@ -182,11 +182,6 @@ export function Converter() {
               onTimeIntervalChange={setTimeInterval}
             />
             <Schedule priceHistory={state.priceHistory}></Schedule>
-            {/*<img*/}
-            {/*  className={styles.schedule}*/}
-            {/*  src={graph}*/}
-            {/*  alt="Currency exchange rate graph"*/}
-            {/*/>*/}
           </div>
         </div>
         {/*Когда меняется валюта, меняется ключ => пересоздание компонента и isOpen внутри сбрасывается*/}{" "}
