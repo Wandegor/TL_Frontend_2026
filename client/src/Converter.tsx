@@ -54,7 +54,7 @@ export function Converter() {
         paymentCurrency: base,
         purchasedCurrency: quote,
         fromDateTime: fromDateTime,
-        toDateTime: new Date().toISOString()
+        toDateTime: new Date().toISOString(),
       });
 
       const priceHistory = priceChangeDtos.map(mapPriceChangeDtoToPriceChange);
@@ -100,7 +100,13 @@ export function Converter() {
 
     loadPriceHistory(base, quote, timeInterval);
 
+    const intervalId = setInterval(() => {
+      loadPriceHistory(base, quote, timeInterval);
+    }, 10000);
 
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [base, quote, timeInterval]);
 
   if (state.error) {
