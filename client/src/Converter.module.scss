@@ -46,6 +46,8 @@
 }
 
 .right {
+  width: 565px; // предположительно есть максимум
+  max-width: 100%;
   display: flex;
   flex-direction: column;
 }

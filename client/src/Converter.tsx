@@ -38,18 +38,23 @@ export function Converter() {
     clearFilters,
   } = useConverter(state.currencies, state.priceHistory.at(-1));
 
-  const fromDateTime = new Date(
-    Date.now() - timeInterval * 60 * 1000,
-  ).toISOString();
-
-  const loadPriceHistory = async (base: string, quote: string) => {
+  const loadPriceHistory = async (
+    base: string,
+    quote: string,
+    interval: number,
+  ) => {
     dispatch({ type: "FETCH_PRICE_START" });
+
+    const fromDateTime = new Date(
+      Date.now() - interval * 60 * 1000,
+    ).toISOString();
 
     try {
       const priceChangeDtos = await getPriceChanges({
         paymentCurrency: base,
         purchasedCurrency: quote,
         fromDateTime: fromDateTime,
+        toDateTime: new Date().toISOString()
       });
 
       const priceHistory = priceChangeDtos.map(mapPriceChangeDtoToPriceChange);
@@ -93,8 +98,10 @@ export function Converter() {
       return;
     }
 
-    loadPriceHistory(base, quote);
-  }, [base, quote]);
+    loadPriceHistory(base, quote, timeInterval);
+
+
+  }, [base, quote, timeInterval]);
 
   if (state.error) {
     return (
