@@ -3,7 +3,6 @@ import { CurrencyInput } from "./components/CurrencyInput/CurrencyInput.tsx";
 import { MoreAbout } from "./components/MoreAbout/MoreAbout.tsx";
 import { Filter } from "./components/Filter/Filter.tsx";
 import { ScheduleFilters } from "./components/ScheduleFilters/ScheduleFilters.tsx";
-import graph from "./assets/graf.png";
 import { Button } from "./components/Button/Button.tsx";
 import { useConverter } from "./hooks/useConverter.ts";
 import { useEffect, useReducer, useState } from "react";
@@ -13,6 +12,7 @@ import { mapCurrencyDtoToCurrency } from "./mappers/currencyMapper.ts";
 import { getPriceChanges } from "./api/priceChangeApi.ts";
 import { mapPriceChangeDtoToPriceChange } from "./mappers/priceChangeMapper.ts";
 import { Toast } from "./components/Toast/Toast.tsx";
+import { Schedule } from "./components/Schedule/Schedule.tsx";
 
 export function Converter() {
   const [state, dispatch] = useReducer(converterReducer, initialState);
@@ -181,11 +181,12 @@ export function Converter() {
               selectedInterval={timeInterval}
               onTimeIntervalChange={setTimeInterval}
             />
-            <img
-              className={styles.schedule}
-              src={graph}
-              alt="Currency exchange rate graph"
-            />
+            <Schedule priceHistory={state.priceHistory}></Schedule>
+            {/*<img*/}
+            {/*  className={styles.schedule}*/}
+            {/*  src={graph}*/}
+            {/*  alt="Currency exchange rate graph"*/}
+            {/*/>*/}
           </div>
         </div>
         {/*Когда меняется валюта, меняется ключ => пересоздание компонента и isOpen внутри сбрасывается*/}{" "}
