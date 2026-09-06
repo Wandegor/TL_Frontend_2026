@@ -6,7 +6,7 @@ import { ScheduleFilters } from "./components/ScheduleFilters/ScheduleFilters.ts
 import graph from "./assets/graf.png";
 import { Button } from "./components/Button/Button.tsx";
 import { useConverter } from "./hooks/useConverter.ts";
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { getCurrencies } from "./api/currencyApi.ts";
 import { converterReducer, initialState } from "./reducer/converterReducer.ts";
 import { mapCurrencyDtoToCurrency } from "./mappers/currencyMapper.ts";
@@ -16,6 +16,7 @@ import { Toast } from "./components/Toast/Toast.tsx";
 
 export function Converter() {
   const [state, dispatch] = useReducer(converterReducer, initialState);
+  const [timeInterval, setTimeInterval] = useState(3);
 
   const {
     base,
@@ -37,7 +38,9 @@ export function Converter() {
     clearFilters,
   } = useConverter(state.currencies, state.priceHistory.at(-1));
 
-  const fromDateTime = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+  const fromDateTime = new Date(
+    Date.now() - timeInterval * 60 * 1000,
+  ).toISOString();
 
   const loadPriceHistory = async (base: string, quote: string) => {
     dispatch({ type: "FETCH_PRICE_START" });
@@ -174,7 +177,10 @@ export function Converter() {
             />
           </div>
           <div className={styles.right}>
-            <ScheduleFilters />
+            <ScheduleFilters
+              selectedInterval={timeInterval}
+              onTimeIntervalChange={setTimeInterval}
+            />
             <img
               className={styles.schedule}
               src={graph}

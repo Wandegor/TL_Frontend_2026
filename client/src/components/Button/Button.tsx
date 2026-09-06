@@ -9,12 +9,19 @@ type ButtonProps = {
   size: ButtonSize;
   variant: ButtonVariant;
   onClick?: () => void;
+  className?: string;
 };
 
-export const Button = ({ children, size, variant, onClick }: ButtonProps) => {
+export const Button = ({
+  children,
+  size,
+  variant,
+  onClick,
+  className,
+}: ButtonProps) => {
   return (
     <button
-      className={`${styles.button} ${styles[size]} ${styles[variant]}`}
+      className={`${styles.button} ${styles[size]} ${styles[variant]} ${className ?? ""}`}
       type="button"
       onClick={onClick}
     >
