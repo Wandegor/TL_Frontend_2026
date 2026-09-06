@@ -42,6 +42,7 @@ export function Converter() {
     base: string,
     quote: string,
     interval: number,
+    signal: AbortSignal,
   ) => {
     dispatch({ type: "FETCH_PRICE_START" });
 
@@ -50,12 +51,15 @@ export function Converter() {
     ).toISOString();
 
     try {
-      const priceChangeDtos = await getPriceChanges({
-        paymentCurrency: base,
-        purchasedCurrency: quote,
-        fromDateTime: fromDateTime,
-        toDateTime: new Date().toISOString(),
-      });
+      const priceChangeDtos = await getPriceChanges(
+        {
+          paymentCurrency: base,
+          purchasedCurrency: quote,
+          fromDateTime: fromDateTime,
+          toDateTime: new Date().toISOString(),
+        },
+        signal,
+      );
 
       const priceHistory = priceChangeDtos.map(mapPriceChangeDtoToPriceChange);
 
@@ -63,7 +67,11 @@ export function Converter() {
         type: "FETCH_PRICE_SUCCESS",
         payload: priceHistory,
       });
-    } catch {
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") {
+        // отменённый запрос не ошибка
+        return;
+      }
       dispatch({
         type: "FETCH_PRICE_ERROR",
         payload: "COULD NOT GET PRICE DATA FROM THE SERVER",
@@ -98,14 +106,17 @@ export function Converter() {
       return;
     }
 
-    loadPriceHistory(base, quote, timeInterval);
+    const controller = new AbortController();
+
+    loadPriceHistory(base, quote, timeInterval, controller.signal);
 
     const intervalId = setInterval(() => {
-      loadPriceHistory(base, quote, timeInterval);
+      loadPriceHistory(base, quote, timeInterval, controller.signal);
     }, 10000);
 
     return () => {
       clearInterval(intervalId);
+      controller.abort();
     };
   }, [base, quote, timeInterval]);
 

@@ -9,12 +9,15 @@ type GetPricesParams = {
   toDateTime?: string;
 };
 
-export const getPriceChanges = async ({
-  paymentCurrency,
-  purchasedCurrency,
-  fromDateTime,
-  toDateTime,
-}: GetPricesParams): Promise<PriceChangeDto[]> => {
+export const getPriceChanges = async (
+  {
+    paymentCurrency,
+    purchasedCurrency,
+    fromDateTime,
+    toDateTime,
+  }: GetPricesParams,
+  signal: AbortSignal,
+): Promise<PriceChangeDto[]> => {
   const params = new URLSearchParams({
     paymentCurrency,
     purchasedCurrency,
@@ -25,7 +28,9 @@ export const getPriceChanges = async ({
     params.append("toDateTime", toDateTime);
   }
 
-  const response = await fetch(`${API_URL}/prices?${params.toString()}`);
+  const response = await fetch(`${API_URL}/prices?${params.toString()}`, {
+    signal,
+  });
 
   if (!response.ok) {
     throw new Error("Failed to load price changes");
