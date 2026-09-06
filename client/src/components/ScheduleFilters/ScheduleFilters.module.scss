@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.active {
+  background: #c4d7ff;
+}

@@ -1,0 +1,10 @@
+.page {
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+
+@media (max-width: 500px) {
+  .page {
+    padding: 0;
+  }
+}
