@@ -1,14 +1,13 @@
-import { currencies } from "../../data/currencies.ts";
-import styles from "./Converter.module.scss";
-import { CurrencyInput } from "./components/CurrencyInput/CurrencyInput.tsx";
-import { MoreAbout } from "./components/MoreAbout/MoreAbout.tsx";
-import { Filter } from "./components/Filter/Filter.tsx";
-import { ScheduleFilters } from "./components/ScheduleFilters/ScheduleFilters.tsx";
-import graph from "./assets/graf.png";
-import { Button } from "./components/Button/Button.tsx";
-import { useConverter } from "./hooks/useConverter.ts";
+import styles from "../Converter/Converter.module.scss";
+import { CurrencyInput } from "../CurrencyInput/CurrencyInput.tsx";
+import { MoreAbout } from "../MoreAbout/MoreAbout.tsx";
+import { Filter } from "../Filter/Filter.tsx";
+import { ScheduleFilters } from "../ScheduleFilters/ScheduleFilters.tsx";
+import graph from "../../assets/graf.png";
+import { Button } from "../Button/Button.tsx";
+import { useConverter } from "../../hooks/useConverter.ts";
 
-export function Converter() {
+export const Converter = () => {
   const {
     base,
     quote,
@@ -17,7 +16,7 @@ export function Converter() {
     filters,
     baseCurrency,
     quoteCurrency,
-    CURRENCY_CODES,
+    currencyCodes,
     priceChange,
     savePair,
     selectPair,
@@ -48,7 +47,7 @@ export function Converter() {
             <CurrencyInput
               amount={amount}
               currencyCode={base}
-              currencies={CURRENCY_CODES}
+              currencies={currencyCodes}
               onAmountChange={handleAmountChange}
               onCurrencyChange={handleBaseChange}
               amountLabel="Сумма"
@@ -60,7 +59,7 @@ export function Converter() {
             <CurrencyInput
               amount={converted}
               currencyCode={quote}
-              currencies={CURRENCY_CODES}
+              currencies={currencyCodes}
               onAmountChange={handleQuoteAmountChange}
               onCurrencyChange={handleQuoteChange}
               amountLabel="Результат"
@@ -92,4 +91,4 @@ export function Converter() {
       />
     </section>
   );
-}
+};

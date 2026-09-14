@@ -1,35 +1,36 @@
 import { useState } from "react";
-import { CURRENCIES } from "../data/currencies.ts";
+import { currencies } from "../data/currencies.ts";
 import { priceChanges } from "../data/priceChanges.ts";
 import type { CurrencyPair } from "../types/currencyPair.ts";
 
 export function useConverter() {
-  const [base, setBase] = useState(CURRENCIES[1].code);
-  const [quote, setQuote] = useState(CURRENCIES[3].code);
-  const [amount, setAmount] = useState(100);
+  const [base, setBase] = useState(currencies[1].code);
+  const [quote, setQuote] = useState(currencies[3].code);
+  const initAmount = 100;
+  const [amount, setAmount] = useState(initAmount);
   const [converted, setConverted] = useState(
     priceChanges[base][quote].price * amount,
   );
 
   const [filters, setFilters] = useState<CurrencyPair[]>([
     {
-      base: CURRENCIES[1].code,
-      quote: CURRENCIES[0].code,
+      base: currencies[1].code,
+      quote: currencies[0].code,
     },
     {
-      base: CURRENCIES[1].code,
-      quote: CURRENCIES[3].code,
+      base: currencies[1].code,
+      quote: currencies[3].code,
     },
   ]);
-  const baseCurrency = CURRENCIES.find((currency) => currency.code === base);
-  const quoteCurrency = CURRENCIES.find((currency) => currency.code === quote);
+  const baseCurrency = currencies.find((currency) => currency.code === base);
+  const quoteCurrency = currencies.find((currency) => currency.code === quote);
 
   // теоретически такого быть не может, но всё же
   if (!baseCurrency || !quoteCurrency) {
     throw new Error("Currency not found");
   }
 
-  const CURRENCY_CODES = CURRENCIES.map((currency) => currency.code);
+  const currencyCodes = currencies.map((currency) => currency.code);
 
   const priceChange = priceChanges[base][quote];
   const rate = priceChange.price;
@@ -100,7 +101,7 @@ export function useConverter() {
     filters,
     baseCurrency,
     quoteCurrency,
-    CURRENCY_CODES,
+    currencyCodes,
     priceChange,
     savePair,
     selectPair,

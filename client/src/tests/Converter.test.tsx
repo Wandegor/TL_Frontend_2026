@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { Converter } from "../Converter.tsx";
-import { CURRENCIES } from "../data/currencies.ts";
+import { Converter } from "../components/Converter/Converter.tsx";
+import { currencies } from "../data/currencies.ts";
 import { priceChanges } from "../data/priceChanges.ts";
 
-const base = CURRENCIES[1];
-const quote = CURRENCIES[3];
-const anotherCurrency = CURRENCIES[0];
+const base = currencies[1];
+const quote = currencies[3];
+const anotherCurrency = currencies[0];
 
 const initialAmount = 100;
 
@@ -43,7 +43,7 @@ describe("Converter", () => {
     expect(baseSelect).toHaveValue(base.code);
     expect(quoteSelect).toHaveValue(quote.code);
 
-    expect(screen.getAllByRole("option")).toHaveLength(CURRENCIES.length * 2);
+    expect(screen.getAllByRole("option")).toHaveLength(currencies.length * 2);
   });
 
   it("recalculates conversion when amount changes", () => {
