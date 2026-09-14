@@ -6,7 +6,7 @@ import { ScheduleFilters } from "../ScheduleFilters/ScheduleFilters.tsx";
 import graph from "../../assets/graf.png";
 import { Button } from "../Button/Button.tsx";
 import { useConverter } from "./useConverter.ts";
-import { useEffect, useReducer } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import { getPriceChanges } from "../../api/priceChangeApi.ts";
 import { getCurrencies } from "../../api/currencyApi.ts";
 import {
@@ -36,8 +36,9 @@ export const Converter = () => {
     clearFilters,
   } = useConverter(state.currencies, state.priceHistory.at(-1));
 
-  const loadPriceHistory = async (base: string, quote: string) => {
+  const loadPriceHistory = useCallback(async (base: string, quote: string) => {
     dispatch({ type: "FETCH_PRICE_START" });
+    console.log(base, quote);
 
     const pastTime = 5 * 60 * 1000;
     const fromDateTime = new Date(Date.now() - pastTime).toISOString();
@@ -59,9 +60,9 @@ export const Converter = () => {
         payload: "COULD NOT GET PRICE DATA FROM THE SERVER",
       });
     }
-  };
+  }, []);
 
-  const loadCurrencies = async () => {
+  const loadCurrencies = useCallback(async () => {
     dispatch({ type: "FETCH_START" });
     try {
       const currencies = await getCurrencies();
@@ -76,19 +77,19 @@ export const Converter = () => {
         payload: "COULD NOT GET DATA FROM THE SERVER",
       });
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadCurrencies().then();
-  }, []);
+  }, [loadCurrencies]);
 
   useEffect(() => {
     if (!baseCurrency || !quoteCurrency) {
       return;
     }
 
-    loadPriceHistory(baseCurrency.code, quoteCurrency.code);
-  }, [baseCurrency, quoteCurrency]);
+    loadPriceHistory(baseCurrency.code, quoteCurrency.code).then();
+  }, [baseCurrency, quoteCurrency, loadPriceHistory]);
 
   if (state.error) {
     return (
