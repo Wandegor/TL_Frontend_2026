@@ -3,10 +3,10 @@ import { CurrencyInput } from "../CurrencyInput/CurrencyInput.tsx";
 import { MoreAbout } from "../MoreAbout/MoreAbout.tsx";
 import { Filter } from "../Filter/Filter.tsx";
 import { ScheduleFilters } from "../ScheduleFilters/ScheduleFilters.tsx";
-import graph from "../../assets/graf.png";
 import { Button } from "../Button/Button.tsx";
 import { Toast } from "../Toast/Toast.tsx";
 import { useConverter } from "./useConverter.ts";
+import { Schedule } from "../Schedule/Schedule.tsx";
 
 export const Converter = () => {
   const {
@@ -27,6 +27,8 @@ export const Converter = () => {
     handleQuoteAmountChange,
     clearFilters,
     clearToastError,
+    timeInterval,
+    setTimeInterval,
   } = useConverter();
 
   if (state.error) {
@@ -71,7 +73,7 @@ export const Converter = () => {
               </h1>
               <p className={styles.date}>{priceDate}</p>
             </header>
-            <div className={styles.currencyRows}>
+            <div className={styles["currency-rows"]}>
               <CurrencyInput
                 amount={baseAmount}
                 currencyCode={baseCurrency.code}
@@ -106,14 +108,14 @@ export const Converter = () => {
             />
           </div>
           <div className={styles.right}>
-            <ScheduleFilters />
-            <img
-              className={styles.schedule}
-              src={graph}
-              alt="Currency exchange rate graph"
+            <ScheduleFilters
+              selectedInterval={timeInterval}
+              onTimeIntervalChange={setTimeInterval}
             />
+            <Schedule priceHistory={state.priceHistory}></Schedule>
           </div>
         </div>
+        {/*Когда меняется валюта, меняется ключ => пересоздание компонента и isOpen внутри сбрасывается*/}{" "}
         <MoreAbout
           key={`${baseCurrency.code}-${quoteCurrency.code}`}
           baseCurrency={baseCurrency}

@@ -162,6 +162,7 @@ describe("Converter", () => {
   });
 
   it("does not allow selecting the same currency", async () => {
+    const user = userEvent.setup();
     render(<Converter />);
 
     const baseSelect = await screen.findByRole("combobox", {
