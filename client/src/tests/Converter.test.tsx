@@ -38,14 +38,14 @@ const priceChanges = {
       purchasedCurrencyCode: quote.code,
       paymentCurrencyCode: base.code,
       price: 1.11,
-      dateTime: "2026-09-05T10:00:00.000Z",
+      dateTime: new Date("2026-09-05T10:00:00.000Z"),
     },
 
     [anotherCurrency.code]: {
       purchasedCurrencyCode: anotherCurrency.code,
       paymentCurrencyCode: base.code,
       price: 0.74,
-      dateTime: "2026-09-05T10:01:00.000Z",
+      dateTime: new Date("2026-09-05T10:01:00.000Z"),
     },
   },
 
@@ -54,7 +54,7 @@ const priceChanges = {
       purchasedCurrencyCode: base.code,
       paymentCurrencyCode: quote.code,
       price: 0.9,
-      dateTime: "2026-09-05T10:02:00.000Z",
+      dateTime: new Date("2026-09-05T10:02:00.000Z"),
     },
   },
 };
@@ -137,9 +137,11 @@ describe("Converter", () => {
 
     const initialRate = priceChanges[base.code][quote.code].price;
 
-    expect(resultInput).toHaveValue(
-      calculateConverted(initialAmount, initialRate),
-    );
+    await waitFor(() => {
+      expect(resultInput).toHaveValue(
+        calculateConverted(initialAmount, initialRate),
+      );
+    });
 
     const newAmount = 2;
 
@@ -176,23 +178,23 @@ describe("Converter", () => {
     });
   });
 
-  it("does not allow selecting the same currency", async () => {
+  it("swaps currencies when selecting the same base currency", async () => {
     render(<Converter />);
 
     const baseSelect = await screen.findByRole("combobox", {
       name: "Исходная валюта",
     });
 
-    const quoteSelect = screen.getByRole("combobox", {
+    const quoteSelect = await screen.findByRole("combobox", {
       name: "Целевая валюта",
     });
 
-    fireEvent.change(quoteSelect, {
-      target: { value: base.code },
+    fireEvent.change(baseSelect, {
+      target: { value: quote.code },
     });
 
-    expect(baseSelect).toHaveValue(base.code);
-    expect(quoteSelect).toHaveValue(quote.code);
+    expect(baseSelect).toHaveValue(quote.code);
+    expect(quoteSelect).toHaveValue(base.code);
   });
 
   it("swaps currencies and recalculates the result", async () => {

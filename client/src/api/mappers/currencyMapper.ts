@@ -1,5 +1,5 @@
-import type { CurrencyDto } from "../dto/CurrencyDto.ts";
-import type { Currency } from "../types/currency.ts";
+import type { CurrencyDto } from "../../dto/CurrencyDto.ts";
+import type { Currency } from "../../types/currency.ts";
 
 export const mapCurrencyDtoToCurrency = (dto: CurrencyDto): Currency => {
   return {

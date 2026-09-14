@@ -1,5 +1,5 @@
-import type { PriceChange } from "../types/priceChange.ts";
-import type { PriceChangeDto } from "../dto/PriceChangeDto.ts";
+import type { PriceChange } from "../../types/priceChange.ts";
+import type { PriceChangeDto } from "../../dto/PriceChangeDto.ts";
 
 export const mapPriceChangeDtoToPriceChange = (
   dto: PriceChangeDto,

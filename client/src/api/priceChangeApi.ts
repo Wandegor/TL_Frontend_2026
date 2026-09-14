@@ -1,6 +1,7 @@
 import type { PriceChangeDto } from "../dto/PriceChangeDto.ts";
-
-const API_URL = "http://localhost:5081";
+import { api_url } from "./api.ts";
+import { mapPriceChangeDtoToPriceChange } from "./mappers/priceChangeMapper.ts";
+import type { PriceChange } from "../types/priceChange.ts";
 
 type GetPricesParams = {
   paymentCurrency: string;
@@ -14,7 +15,7 @@ export const getPriceChanges = async ({
   purchasedCurrency,
   fromDateTime,
   toDateTime,
-}: GetPricesParams): Promise<PriceChangeDto[]> => {
+}: GetPricesParams): Promise<PriceChange[]> => {
   const params = new URLSearchParams({
     paymentCurrency,
     purchasedCurrency,
@@ -25,11 +26,13 @@ export const getPriceChanges = async ({
     params.append("toDateTime", toDateTime);
   }
 
-  const response = await fetch(`${API_URL}/prices?${params.toString()}`);
+  const response = await fetch(`${api_url}/prices?${params.toString()}`);
 
   if (!response.ok) {
     throw new Error("Failed to load price changes");
   }
 
-  return response.json();
+  const priceChangeDtos: PriceChangeDto[] = await response.json();
+
+  return priceChangeDtos.map(mapPriceChangeDtoToPriceChange);
 };

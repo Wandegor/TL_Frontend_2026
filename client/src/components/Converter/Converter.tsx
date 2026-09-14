@@ -8,8 +8,6 @@ import { Button } from "../Button/Button.tsx";
 import { useConverter } from "./useConverter.ts";
 import { useEffect, useReducer } from "react";
 import { getPriceChanges } from "../../api/priceChangeApi.ts";
-import { mapPriceChangeDtoToPriceChange } from "../../mappers/priceChangeMapper.ts";
-import { mapCurrencyDtoToCurrency } from "../../mappers/currencyMapper.ts";
 import { getCurrencies } from "../../api/currencyApi.ts";
 import {
   converterReducer,
@@ -45,13 +43,11 @@ export const Converter = () => {
     const fromDateTime = new Date(Date.now() - pastTime).toISOString();
 
     try {
-      const priceChangeDtos = await getPriceChanges({
+      const priceHistory = await getPriceChanges({
         paymentCurrency: base,
         purchasedCurrency: quote,
         fromDateTime: fromDateTime,
       });
-
-      const priceHistory = priceChangeDtos.map(mapPriceChangeDtoToPriceChange);
 
       dispatch({
         type: "FETCH_PRICE_SUCCESS",
@@ -68,8 +64,7 @@ export const Converter = () => {
   const loadCurrencies = async () => {
     dispatch({ type: "FETCH_START" });
     try {
-      const currencyDtos = await getCurrencies();
-      const currencies = currencyDtos.map(mapCurrencyDtoToCurrency);
+      const currencies = await getCurrencies();
 
       dispatch({
         type: "FETCH_CURRENCIES_SUCCESS",
