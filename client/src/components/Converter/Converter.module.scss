@@ -1,4 +1,4 @@
-@use "styles/variables.scss" as vars;
+@use "../../styles/variables.scss" as vars;
 
 @mixin text($font-size, $color) {
   font-family: Inter, sans-serif;
@@ -46,10 +46,15 @@
 }
 
 .right {
-  width: 565px; // предположительно есть максимум
-  max-width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.schedule {
+  margin-top: 10px;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 
 .head {
@@ -149,23 +154,3 @@
   color: #ffffff;
   background: #ff696a;
 }
-
-// заготовка из лекции, решил пока не убирать
-//.result {
-//  margin: 0;
-//  font-size: 40px;
-//  font-weight: 600;
-//  line-height: 1.1;
-//  color: vars.$blue;
-//}
-//
-//.unit {
-//  font-size: 24px;
-//  font-weight: 500;
-//  color: vars.$txt-2;
-//}
-//
-//.rate {
-//  margin: 0;
-//  color: vars.$txt-2;
-//}

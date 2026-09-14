@@ -3,6 +3,7 @@ import type { Currency } from "../../types/currency.ts";
 import arrow from "../../assets/arrow.svg";
 import { useState } from "react";
 import { Button } from "../Button/Button.tsx";
+import { CurrencyInfo } from "../CurrencyInfo/CurrencyInfo.tsx";
 
 type MoreAboutProps = {
   baseCurrency: Currency;
@@ -27,7 +28,7 @@ export const MoreAbout = ({ baseCurrency, quoteCurrency }: MoreAboutProps) => {
             <img
               src={arrow}
               alt=""
-              className={isOpen ? styles.arrowOpen : ""}
+              className={isOpen ? styles["arrow-open"] : ""}
             />
           </span>
         </Button>
@@ -37,20 +38,8 @@ export const MoreAbout = ({ baseCurrency, quoteCurrency }: MoreAboutProps) => {
 
       {isOpen && (
         <div>
-          <article className={styles.article}>
-            <h2>
-              {baseCurrency.name} - {baseCurrency.code} - {baseCurrency.symbol}
-            </h2>
-            <p>{baseCurrency.description || "Description is not available"}</p>
-          </article>
-
-          <article className={styles.article}>
-            <h2>
-              {quoteCurrency.name} - {quoteCurrency.code} -{" "}
-              {quoteCurrency.symbol}
-            </h2>
-            <p>{quoteCurrency.description || "Description is not available"}</p>
-          </article>
+          <CurrencyInfo currency={baseCurrency} />
+          <CurrencyInfo currency={quoteCurrency} />
         </div>
       )}
     </section>

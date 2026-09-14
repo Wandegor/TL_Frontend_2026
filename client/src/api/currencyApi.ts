@@ -1,12 +1,15 @@
+import { api_url } from "./api.ts";
+import { mapCurrencyDtoToCurrency } from "./mappers/currencyMapper.ts";
+import type { Currency } from "../types/currency.ts";
 import type { CurrencyDto } from "../dto/CurrencyDto.ts";
 
-const API_URL = "http://localhost:5081";
-
-export const getCurrencies = async (): Promise<CurrencyDto[]> => {
-  const response = await fetch(`${API_URL}/Currency`);
+export const getCurrencies = async (): Promise<Currency[]> => {
+  const response = await fetch(`${api_url}/Currency`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch currency data");
   }
-  return await response.json();
+  const currencyDtos: CurrencyDto[] = await response.json();
+
+  return currencyDtos.map(mapCurrencyDtoToCurrency);
 };

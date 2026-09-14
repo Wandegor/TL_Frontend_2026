@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { MoreAbout } from "../components/MoreAbout/MoreAbout.tsx";
+import userEvent from "@testing-library/user-event";
 
 const baseCurrency = {
   code: "PLN",
@@ -29,14 +30,15 @@ describe("MoreAbout", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders currency information and descriptions", () => {
+  it("renders currency information and descriptions", async () => {
+    const user = userEvent.setup();
     render(
       <MoreAbout baseCurrency={baseCurrency} quoteCurrency={quoteCurrency} />,
     );
 
     // имитация нажатия MoreAbout
     const button = screen.getByRole("button", { name: "PLN/JPY: about" });
-    fireEvent.click(button);
+    await user.click(button);
 
     expect(screen.getByText("Polish zloty - PLN - zł")).toBeInTheDocument();
 
