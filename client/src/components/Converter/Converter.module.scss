@@ -1,0 +1,78 @@
+@use "../../styles/variables.scss" as vars;
+
+@mixin text($font-size, $color) {
+  color: $color;
+  font-family: Inter, sans-serif;
+  font-size: $font-size;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 100%;
+  letter-spacing: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+
+  max-inline-size: 1258px;
+  margin: 0 auto;
+  padding: 50px 40px;
+
+  background: #fff;
+  border: 30px;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgb(24 105 227 / 8%);
+}
+
+@media (width <= 500px) {
+  .card {
+    padding: 15px;
+  }
+}
+
+.top {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 30px;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  inline-size: 410px; // предположительно есть максимум
+  max-inline-size: 100%;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule {
+  inline-size: 100%;
+  block-size: 100%;
+  margin-block-start: 10px;
+
+  object-fit: contain;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.kicker {
+  @include text(20px, vars.$txt-2);
+}
+
+.title {
+  @include text(45px, vars.$txt);
+}
+
+.date {
+  @include text(15px, vars.$txt-2);
+}

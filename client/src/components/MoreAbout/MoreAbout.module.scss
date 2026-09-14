@@ -1,0 +1,32 @@
+@use "../../styles/variables.scss" as vars;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  rotate: 180deg;
+}
+
+.arrow img {
+  inline-size: 15px;
+}
+
+.arrow-open {
+  transform: rotate(180deg);
+}
+
+.line {
+  flex: 1;
+  block-size: 1px;
+  background: vars.$line;
+}
