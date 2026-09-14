@@ -90,7 +90,7 @@ describe("Converter", () => {
     render(<Converter />);
 
     const amountInput = await screen.findByRole("spinbutton", {
-      name: "Сумма",
+      name: "Исходное значение",
     });
 
     const resultInput = screen.getByRole("spinbutton", {
@@ -123,7 +123,7 @@ describe("Converter", () => {
     render(<Converter />);
 
     const amountInput = await screen.findByRole("spinbutton", {
-      name: "Сумма",
+      name: "Исходное значение",
     });
 
     const resultInput = screen.getByRole("spinbutton", {
