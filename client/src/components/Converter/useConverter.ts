@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { currencies } from "../data/currencies.ts";
-import { priceChanges } from "../data/priceChanges.ts";
-import type { CurrencyPair } from "../types/currencyPair.ts";
+import { currencies } from "../../data/currencies.ts";
+import { priceChanges } from "../../data/priceChanges.ts";
+import type { CurrencyPair } from "../../types/currencyPair.ts";
 
 export function useConverter() {
   const [base, setBase] = useState(currencies[1].code);
   const [quote, setQuote] = useState(currencies[3].code);
   const initAmount = 100;
-  const [amount, setAmount] = useState(initAmount);
-  const [converted, setConverted] = useState(
-    priceChanges[base][quote].price * amount,
+  const [baseAmount, setBaseAmount] = useState(initAmount);
+  const [quoteAmount, setQuoteAmount] = useState(
+    priceChanges[base][quote].price * baseAmount,
   );
 
   const [filters, setFilters] = useState<CurrencyPair[]>([
@@ -22,6 +22,7 @@ export function useConverter() {
       quote: currencies[3].code,
     },
   ]);
+
   const baseCurrency = currencies.find((currency) => currency.code === base);
   const quoteCurrency = currencies.find((currency) => currency.code === quote);
 
@@ -32,8 +33,8 @@ export function useConverter() {
 
   const currencyCodes = currencies.map((currency) => currency.code);
 
-  const priceChange = priceChanges[base][quote];
-  const rate = priceChange.price;
+  const priceDate = new Date(priceChanges[base][quote].dateTime).toUTCString();
+  const rate = priceChanges[base][quote].price;
 
   const savePair = (pair: CurrencyPair) => {
     const saved = filters.some(
@@ -45,48 +46,53 @@ export function useConverter() {
     setFilters((prev) => [...prev, pair]);
   };
 
-  const convertFormula = (amount: number, rate: number) => {
-    return Number((amount * rate).toFixed(2));
+  const convertFormula = (baseAmount: number, rate: number) => {
+    return Number((baseAmount * rate).toFixed(2));
+  };
+  const convertReverseFormula = (baseAmount: number, rate: number) => {
+    return Number((baseAmount / rate).toFixed(2));
   };
 
   const selectPair = (pair: CurrencyPair) => {
     const newRate = priceChanges[pair.base][pair.quote].price;
     setBase(pair.base);
     setQuote(pair.quote);
-    setConverted(convertFormula(amount, newRate));
+    setQuoteAmount(convertFormula(baseAmount, newRate));
   };
 
   const handleBaseChange = (value: string) => {
     if (value === quote) {
+      handleSwap();
       return;
     }
     const newRate = priceChanges[value][quote].price;
     setBase(value);
-    setConverted(convertFormula(amount, newRate));
+    setQuoteAmount(convertFormula(baseAmount, newRate));
   };
   const handleQuoteChange = (value: string) => {
     if (value === base) {
+      handleSwap();
       return;
     }
     const newRate = priceChanges[base][value].price;
     setQuote(value);
-    setConverted(convertFormula(amount, newRate));
+    setQuoteAmount(convertFormula(baseAmount, newRate));
   };
 
   const handleSwap = () => {
     const newRate = priceChanges[quote][base].price;
     setBase(quote);
     setQuote(base);
-    setConverted(convertFormula(amount, newRate));
+    setQuoteAmount(convertFormula(baseAmount, newRate));
   };
 
-  const handleAmountChange = (value: number) => {
-    setAmount(value);
-    setConverted(convertFormula(value, rate));
+  const handleBaseAmountChange = (value: number) => {
+    setBaseAmount(value);
+    setQuoteAmount(convertFormula(value, rate));
   };
   const handleQuoteAmountChange = (value: number) => {
-    setConverted(value);
-    setAmount(Number((value / rate).toFixed(2)));
+    setQuoteAmount(value);
+    setBaseAmount(convertReverseFormula(value, rate));
   };
 
   const clearFilters = () => {
@@ -94,21 +100,19 @@ export function useConverter() {
   };
 
   return {
-    base,
-    quote,
-    amount,
-    converted,
+    baseAmount,
+    quoteAmount,
     filters,
     baseCurrency,
     quoteCurrency,
     currencyCodes,
-    priceChange,
+    priceDate,
     savePair,
     selectPair,
     handleBaseChange,
     handleQuoteChange,
     handleSwap,
-    handleAmountChange,
+    handleBaseAmountChange,
     handleQuoteAmountChange,
     clearFilters,
   };

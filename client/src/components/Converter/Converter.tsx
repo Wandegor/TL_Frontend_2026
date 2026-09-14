@@ -5,25 +5,23 @@ import { Filter } from "../Filter/Filter.tsx";
 import { ScheduleFilters } from "../ScheduleFilters/ScheduleFilters.tsx";
 import graph from "../../assets/graf.png";
 import { Button } from "../Button/Button.tsx";
-import { useConverter } from "../../hooks/useConverter.ts";
+import { useConverter } from "./useConverter.ts";
 
 export const Converter = () => {
   const {
-    base,
-    quote,
-    amount,
-    converted,
+    baseAmount,
+    quoteAmount,
     filters,
     baseCurrency,
     quoteCurrency,
     currencyCodes,
-    priceChange,
+    priceDate,
     savePair,
     selectPair,
     handleBaseChange,
     handleQuoteChange,
     handleSwap,
-    handleAmountChange,
+    handleBaseAmountChange,
     handleQuoteAmountChange,
     clearFilters,
   } = useConverter();
@@ -34,21 +32,19 @@ export const Converter = () => {
         <div className={styles.left}>
           <header className={styles.head}>
             <p className={styles.kicker}>
-              {amount} {baseCurrency.name} is
+              {baseAmount} {baseCurrency.name} is
             </p>
             <h1 className={styles.title}>
-              {converted} {quoteCurrency.name}
+              {quoteAmount} {quoteCurrency.name}
             </h1>
-            <p className={styles.date}>
-              {new Date(priceChange.dateTime).toUTCString()}
-            </p>
+            <p className={styles.date}>{priceDate}</p>
           </header>
           <div className={styles["currency-rows"]}>
             <CurrencyInput
-              amount={amount}
-              currencyCode={base}
+              amount={baseAmount}
+              currencyCode={baseCurrency.code}
               currencies={currencyCodes}
-              onAmountChange={handleAmountChange}
+              onAmountChange={handleBaseAmountChange}
               onCurrencyChange={handleBaseChange}
               amountLabel="Сумма"
               currencyLabel="Исходная валюта"
@@ -57,8 +53,8 @@ export const Converter = () => {
               swap
             </Button>
             <CurrencyInput
-              amount={converted}
-              currencyCode={quote}
+              amount={quoteAmount}
+              currencyCode={quoteCurrency.code}
               currencies={currencyCodes}
               onAmountChange={handleQuoteAmountChange}
               onCurrencyChange={handleQuoteChange}
@@ -67,7 +63,10 @@ export const Converter = () => {
             />
           </div>
           <Filter
-            currentPair={{ base, quote }}
+            currentPair={{
+              base: baseCurrency.code,
+              quote: quoteCurrency.code,
+            }}
             savedPairs={filters}
             onSave={savePair}
             onSelect={(pair) => selectPair(pair)}
@@ -85,7 +84,7 @@ export const Converter = () => {
       </div>
       {/*Когда меняется валюта, меняется ключ => пересоздание компонента и isOpen внутри сбрасывается*/}{" "}
       <MoreAbout
-        key={`${base}-${quote}`}
+        key={`${baseCurrency.code}-${quoteCurrency.code}`}
         baseCurrency={baseCurrency}
         quoteCurrency={quoteCurrency}
       />

@@ -30,13 +30,3 @@
   block-size: 1px;
   background: vars.$line;
 }
-
-.article {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.article p {
-  color: vars.$txt-2;
-}

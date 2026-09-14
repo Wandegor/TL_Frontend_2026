@@ -1,6 +1,6 @@
-import type { Currency } from "../types/currency";
+import type { CurrencyDto } from "../dto/CurrencyDto.ts";
 
-export const currencies: Currency[] = [
+export const currencies: CurrencyDto[] = [
   {
     code: "CAD",
     description:
