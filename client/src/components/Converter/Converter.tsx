@@ -5,20 +5,12 @@ import { Filter } from "../Filter/Filter.tsx";
 import { ScheduleFilters } from "../ScheduleFilters/ScheduleFilters.tsx";
 import graph from "../../assets/graf.png";
 import { Button } from "../Button/Button.tsx";
-import { useConverter } from "./useConverter.ts";
-import { useCallback, useEffect, useReducer } from "react";
-import { getPriceChanges } from "../../api/priceChangeApi.ts";
-import { getCurrencies } from "../../api/currencyApi.ts";
-import {
-  converterReducer,
-  initialState,
-} from "../../reducer/converterReducer.ts";
 import { Toast } from "../Toast/Toast.tsx";
+import { useConverter } from "./useConverter.ts";
 
 export const Converter = () => {
-  const [state, dispatch] = useReducer(converterReducer, initialState);
-
   const {
+    state,
     baseAmount,
     quoteAmount,
     filters,
@@ -34,62 +26,8 @@ export const Converter = () => {
     handleBaseAmountChange,
     handleQuoteAmountChange,
     clearFilters,
-  } = useConverter(state.currencies, state.priceHistory.at(-1));
-
-  const loadPriceHistory = useCallback(async (base: string, quote: string) => {
-    dispatch({ type: "FETCH_PRICE_START" });
-    console.log(base, quote);
-
-    const pastTime = 5 * 60 * 1000;
-    const fromDateTime = new Date(Date.now() - pastTime).toISOString();
-
-    try {
-      const priceHistory = await getPriceChanges({
-        paymentCurrency: base,
-        purchasedCurrency: quote,
-        fromDateTime: fromDateTime,
-      });
-
-      dispatch({
-        type: "FETCH_PRICE_SUCCESS",
-        payload: priceHistory,
-      });
-    } catch {
-      dispatch({
-        type: "FETCH_PRICE_ERROR",
-        payload: "COULD NOT GET PRICE DATA FROM THE SERVER",
-      });
-    }
-  }, []);
-
-  const loadCurrencies = useCallback(async () => {
-    dispatch({ type: "FETCH_START" });
-    try {
-      const currencies = await getCurrencies();
-
-      dispatch({
-        type: "FETCH_CURRENCIES_SUCCESS",
-        payload: currencies,
-      });
-    } catch {
-      dispatch({
-        type: "FETCH_ERROR",
-        payload: "COULD NOT GET DATA FROM THE SERVER",
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    loadCurrencies().then();
-  }, [loadCurrencies]);
-
-  useEffect(() => {
-    if (!baseCurrency || !quoteCurrency) {
-      return;
-    }
-
-    loadPriceHistory(baseCurrency.code, quoteCurrency.code).then();
-  }, [baseCurrency, quoteCurrency, loadPriceHistory]);
+    clearToastError,
+  } = useConverter();
 
   if (state.error) {
     return (
@@ -101,8 +39,6 @@ export const Converter = () => {
 
   if (
     state.isLoading ||
-    !baseCurrency ||
-    !quoteCurrency ||
     !baseCurrency ||
     !quoteCurrency ||
     !priceDate ||
@@ -120,10 +56,7 @@ export const Converter = () => {
   return (
     <>
       {state.toastError && (
-        <Toast
-          message={state.toastError.message}
-          onClose={() => dispatch({ type: "CLEAR_PRICE_ERROR" })}
-        ></Toast>
+        <Toast message={state.toastError.message} onClose={clearToastError} />
       )}
 
       <section className={styles.card}>
@@ -168,7 +101,7 @@ export const Converter = () => {
               }}
               savedPairs={filters}
               onSave={savePair}
-              onSelect={(pair) => selectPair(pair)}
+              onSelect={selectPair}
               onClear={clearFilters}
             />
           </div>
@@ -181,7 +114,6 @@ export const Converter = () => {
             />
           </div>
         </div>
-        {/*Когда меняется валюта, меняется ключ => пересоздание компонента и isOpen внутри сбрасывается*/}{" "}
         <MoreAbout
           key={`${baseCurrency.code}-${quoteCurrency.code}`}
           baseCurrency={baseCurrency}
