@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { Converter } from "../Converter.tsx";
+import { Converter } from "../components/Converter/Converter.tsx";
 import { getCurrencies } from "../api/currencyApi.ts";
 import { getPriceChanges } from "../api/priceChangeApi.ts";
 

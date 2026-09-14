@@ -42,13 +42,13 @@ describe("converterReducer", () => {
         purchasedCurrencyCode: "AUD",
         paymentCurrencyCode: "CAD",
         price: 1.11,
-        dateTime: "2026-09-05T10:00:00.000Z",
+        dateTime: new Date("2026-09-05T10:00:00.000Z"),
       },
       {
         purchasedCurrencyCode: "AUD",
         paymentCurrencyCode: "CAD",
         price: 1.12,
-        dateTime: "2026-09-05T10:01:00.000Z",
+        dateTime: new Date("2026-09-05T10:01:00.000Z"),
       },
     ];
 

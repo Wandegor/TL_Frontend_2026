@@ -8,6 +8,6 @@ export const mapPriceChangeDtoToPriceChange = (
     purchasedCurrencyCode: dto.purchasedCurrencyCode,
     paymentCurrencyCode: dto.paymentCurrencyCode,
     price: dto.price,
-    dateTime: dto.dateTime,
+    dateTime: new Date(dto.dateTime),
   };
 };
