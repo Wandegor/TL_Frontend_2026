@@ -144,7 +144,7 @@ export const Converter = () => {
                 currencies={currencyCodes}
                 onAmountChange={handleBaseAmountChange}
                 onCurrencyChange={handleBaseChange}
-                amountLabel="Сумма"
+                amountLabel="Исходное значение"
                 currencyLabel="Исходная валюта"
               />
               <Button size="tiny" variant="gray" onClick={handleSwap}>

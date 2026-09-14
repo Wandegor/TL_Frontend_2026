@@ -16,6 +16,7 @@
     "lint-fix:stylelint": "npm run lint:stylelint -- --fix"
   },
   "dependencies": {
+    "@testing-library/user-event": "^14.6.7",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
