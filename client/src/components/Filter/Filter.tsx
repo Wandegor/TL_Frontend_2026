@@ -9,7 +9,7 @@ type SavedPairsProps = {
 export const Filter = ({ savedPairs }: SavedPairsProps) => {
   return (
     <>
-      <div className={styles.buttonWrapper}>
+      <div className={styles["button-wrapper"]}>
         <Button size="large" variant="blue">
           + SAVE FILTER
         </Button>
@@ -18,7 +18,7 @@ export const Filter = ({ savedPairs }: SavedPairsProps) => {
           CLEAR FILTERS
         </Button>
       </div>
-      <div className={styles.filtersWrapper}>
+      <div className={styles["filters-wrapper"]}>
         {savedPairs.map((pair) => (
           <Button
             key={`${pair.base}-${pair.quote}`}

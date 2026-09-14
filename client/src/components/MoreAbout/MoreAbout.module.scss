@@ -18,17 +18,17 @@
 }
 
 .arrow img {
-  width: 15px;
+  inline-size: 15px;
 }
 
-.arrowOpen {
+.arrow-open {
   transform: rotate(180deg);
 }
 
 .line {
   flex: 1;
+  block-size: 1px;
   background: vars.$line;
-  height: 1px;
 }
 
 .article {
@@ -36,6 +36,7 @@
   flex-direction: column;
   gap: 5px;
 }
+
 .article p {
   color: vars.$txt-2;
 }

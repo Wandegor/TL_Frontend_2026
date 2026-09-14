@@ -1,12 +1,12 @@
-.buttonWrapper {
-  margin-top: 15px;
+.button-wrapper {
   display: flex;
   gap: 10px;
+  margin-block-start: 15px;
 }
 
-.filtersWrapper {
-  margin-top: 22px;
+.filters-wrapper {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
+  gap: 10px;
+  margin-block-start: 22px;
 }

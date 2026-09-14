@@ -15,7 +15,7 @@ export const MoreAbout = ({ baseCurrency, quoteCurrency }: MoreAboutProps) => {
         <Button size="medium" variant="gray">
           {baseCurrency.code}/{quoteCurrency.code}: about
           <span className={styles.arrow} aria-hidden="true">
-            <img src={arrow} alt="" className={styles.arrowOpen} />
+            <img src={arrow} alt="" className={styles["arrow-open"]} />
           </span>
         </Button>
 

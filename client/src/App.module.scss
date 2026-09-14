@@ -3,7 +3,7 @@
   padding: 64px 24px;
 }
 
-@media (max-width: 500px) {
+@media (width <= 500px) {
   .page {
     padding: 0;
   }

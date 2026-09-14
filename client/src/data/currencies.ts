@@ -1,6 +1,6 @@
 import type { Currency } from "../types/currency";
 
-export const CURRENCIES: Currency[] = [
+export const currencies: Currency[] = [
   {
     code: "USD",
     name: "United States dollar",

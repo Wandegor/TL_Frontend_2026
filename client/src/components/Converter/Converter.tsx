@@ -1,15 +1,15 @@
-import { CURRENCIES } from "./data/currencies.ts";
+import { currencies } from "../../data/currencies.ts";
 import styles from "./Converter.module.scss";
-import { CurrencyInput } from "./components/CurrencyInput/CurrencyInput.tsx";
-import { MoreAbout } from "./components/MoreAbout/MoreAbout.tsx";
-import { Filter } from "./components/Filter/Filter.tsx";
-import type { CurrencyPair } from "./types/currencyPair.ts";
-import { ScheduleFilters } from "./components/ScheduleFilters/ScheduleFilters.tsx";
-import graph from "./assets/graf.png";
+import { CurrencyInput } from "../CurrencyInput/CurrencyInput.tsx";
+import { MoreAbout } from "../MoreAbout/MoreAbout.tsx";
+import { Filter } from "../Filter/Filter.tsx";
+import type { CurrencyPair } from "../../types/currencyPair.ts";
+import { ScheduleFilters } from "../ScheduleFilters/ScheduleFilters.tsx";
+import graph from "../../assets/graf.png";
 
-export function Converter() {
-  const baseCurrency = CURRENCIES[2];
-  const quoteCurrency = CURRENCIES[3];
+export const Converter = () => {
+  const baseCurrency = currencies[2];
+  const quoteCurrency = currencies[3];
 
   const filters: CurrencyPair[] = [
     { base: "PLN", quote: "CAD" },
@@ -27,7 +27,7 @@ export function Converter() {
 
             <p className={styles.date}> Fri, 05 Apr 2026 10:35 UTC</p>
           </header>
-          <div className={styles.currencyRows}>
+          <div className={styles["currency-rows"]}>
             <CurrencyInput
               amount={1}
               currencyCode={"PLN"}
@@ -61,4 +61,4 @@ export function Converter() {
       <MoreAbout baseCurrency={baseCurrency!} quoteCurrency={quoteCurrency!} />
     </section>
   );
-}
+};
